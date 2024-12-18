@@ -22,6 +22,8 @@ public class SortArray extends JPanel {
     private final int barWidth;
     private final int stepHeight;
     private final int[] data;
+    private int lastModified = 0;
+    private int lastModified2 = 1;
 
     public SortArray(int dataSize) {
         this.data = new int[dataSize];
@@ -32,13 +34,15 @@ public class SortArray extends JPanel {
         }
     }
 
-    public void randomize() {
+    public void randomize(int speed) {
         Random random = new Random();
 
         for (int i = 0; i < data.length; i++) {
             int index1 = random.nextInt(data.length);
             int index2 = random.nextInt(data.length);
             swap(index1, index2);
+            sleep(speed);
+            repaint();
         }
 
     }
@@ -48,13 +52,27 @@ public class SortArray extends JPanel {
         int value2 = data[index2];
         data[index1] = value2;
         data[index2] = value1;
+        lastModified = index1;
+        lastModified2 = index2;
+    }
+
+    public void sleep(int timeInMillis){
+        try {
+            Thread.sleep(timeInMillis);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public void paintComponent(Graphics graphics) {
-        graphics.setColor(Color.WHITE);
+        super.paintComponent(graphics);
+        super.setBackground(Color.BLACK);
 
         for (int i = 0; i < data.length; i++) {
+            if (i == lastModified) graphics.setColor(Color.RED);
+            else if (i == lastModified2) graphics.setColor(Color.GREEN);
+            else graphics.setColor(Color.WHITE);
             graphics.fillRect(barWidth * i, getHeight() - stepHeight * data[i], barWidth, stepHeight * data[i]);
         }
     }

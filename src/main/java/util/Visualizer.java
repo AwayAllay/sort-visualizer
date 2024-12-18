@@ -13,6 +13,8 @@
  */
 package util;
 
+import algorithms.BubbleSort;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -37,7 +39,12 @@ public class Visualizer {
         frame.setVisible(true);
     }
 
-    public void randomize(){
-        sortArray.randomize();
+    public void bubbleSort(int speed){
+        BubbleSort bubbleSort = new BubbleSort();
+        bubbleSort.sort(sortArray, speed);
+    }
+
+    public void randomize(int speed){
+        sortArray.randomize(speed);
     }
 }
