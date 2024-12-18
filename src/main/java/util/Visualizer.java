@@ -20,7 +20,7 @@ import java.awt.*;
 
 public class Visualizer {
     public static final int WINDOW_WIDTH = 1000;
-    public static final int WINDOW_HEIGHT = 800;
+    public static final int WINDOW_HEIGHT = WINDOW_WIDTH * 9 / 16;
     private JFrame frame;
     SortArray sortArray;
 
@@ -36,6 +36,7 @@ public class Visualizer {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setBackground(Color.BLACK);
         frame.add(sortArray);
+        frame.pack();
         frame.setVisible(true);
     }
 

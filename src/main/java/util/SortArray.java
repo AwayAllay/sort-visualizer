@@ -26,6 +26,7 @@ public class SortArray extends JPanel {
     private int lastModified2 = 1;
 
     public SortArray(int dataSize) {
+        super.setPreferredSize(new Dimension(Visualizer.WINDOW_WIDTH, Visualizer.WINDOW_HEIGHT));
         this.data = new int[dataSize];
         stepHeight = (Visualizer.WINDOW_HEIGHT - 50) / dataSize;
         barWidth = Visualizer.WINDOW_WIDTH / dataSize;
