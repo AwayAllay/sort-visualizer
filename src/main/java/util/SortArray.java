@@ -21,13 +21,13 @@ public class SortArray extends JPanel {
 
     private final int barWidth;
     private final int stepHeight;
-    private final int[] data;
-    private int lastModified = 0;
-    private int lastModified2 = 1;
+    private int[] data;
+    private int[] lastModifiedData;
 
     public SortArray(int dataSize) {
         super.setPreferredSize(new Dimension(Visualizer.WINDOW_WIDTH, Visualizer.WINDOW_HEIGHT));
         this.data = new int[dataSize];
+        this.lastModifiedData = data.clone();
         stepHeight = (Visualizer.WINDOW_HEIGHT - 50) / dataSize;
         barWidth = Visualizer.WINDOW_WIDTH / dataSize;
         for (int i = 1; i < data.length + 1; i++) {
@@ -53,8 +53,6 @@ public class SortArray extends JPanel {
         int value2 = data[index2];
         data[index1] = value2;
         data[index2] = value1;
-        lastModified = index1;
-        lastModified2 = index2;
     }
 
     public void sleep(int timeInMillis){
@@ -65,20 +63,42 @@ public class SortArray extends JPanel {
         }
     }
 
+    public int getIndex(int value){
+
+        int toReturn = 0;
+
+        for (int i = 0; i < data.length; i++) {
+
+            if (data[i] == value){
+                toReturn = i;
+                break;
+            }
+
+        }
+        return toReturn;
+    }
+
     @Override
     public void paintComponent(Graphics graphics) {
         super.paintComponent(graphics);
         super.setBackground(Color.BLACK);
 
         for (int i = 0; i < data.length; i++) {
-            if (i == lastModified) graphics.setColor(Color.RED);
-            else if (i == lastModified2) graphics.setColor(Color.GREEN);
+
+            if (data[i] != lastModifiedData[i]) graphics.setColor(Color.RED);
             else graphics.setColor(Color.WHITE);
+
             graphics.fillRect(barWidth * i, getHeight() - stepHeight * data[i], barWidth, stepHeight * data[i]);
         }
+
+        lastModifiedData = data.clone();
     }
 
     public int[] getData() {
         return data;
+    }
+
+    public void setData(int[] data) {
+        this.data = data;
     }
 }

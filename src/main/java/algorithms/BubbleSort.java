@@ -15,9 +15,18 @@ package algorithms;
 
 import util.SortArray;
 
-public class BubbleSort {
+public class BubbleSort implements SortAlgorithm{
 
-    public void sort(SortArray sortArray, int speed){
+    private final SortArray sortArray;
+    private final int speed;
+
+    public BubbleSort(SortArray sortArray, int speed) {
+        this.sortArray = sortArray;
+        this.speed = speed;
+    }
+
+    @Override
+    public void sort(){
 
         int[] data = sortArray.getData();
 
@@ -25,7 +34,12 @@ public class BubbleSort {
             for (int j = 0; j < data.length; j++) {
 
                 if (data[j] > data[i]){
-                    sortArray.swap(i, j);
+                    int first = data[i];
+                    int second = data[j];
+                    data[j] = first;
+                    data[i] = second;
+
+                    sortArray.setData(data);
                     sortArray.sleep(speed);
                     sortArray.repaint();
                 }
