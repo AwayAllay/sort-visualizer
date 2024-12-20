@@ -15,7 +15,7 @@ package algorithms;
 
 import util.SortArray;
 
-/**Bubblesort is a pretty simple algorithm to sort data. It compares one value with all the other ones and swaps the value in the right place.
+/**Bubblesort is a pretty simple algorithm to sort data. It compares one value with the next one swaps the values if the next one is larger.
  * It is a pretty slow algorithm (average; o(n²)) but is nice to look at and uses very little memory(o(1)).*/
 
 public class BubbleSort implements SortAlgorithm{
@@ -33,15 +33,16 @@ public class BubbleSort implements SortAlgorithm{
 
         int[] data = sortArray.getData();
 
-        for (int i = 0; i < data.length; i++) {
-            for (int j = 0; j < data.length - 1; j++) {
+        for(int i = 1; i < data.length; i++) {
 
-                if (data[j] > data[j + 1]){
-                    sortArray.swap(i, j);
-                    sortArray.setData(data);
-                    sortArray.repaint();
+            for(int j = 0; j < data.length - i; j++) {
+
+                if (data[j] > data[j + 1]) {
+                    sortArray.swap(j, j + 1);
                     sortArray.sleep(speed);
+                    sortArray.repaint();
                 }
+
             }
         }
 

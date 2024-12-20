@@ -15,6 +15,8 @@ package algorithms;
 
 import util.SortArray;
 
+/**Selection sort is a sort algorithm that finds the min value in an array and swaps it to its correct place.
+ * o(n²) in worst case, o(n) in best case. But because it goes through the array several times, this algorithm is pretty inefficient. */
 public class SelectionSort implements SortAlgorithm{
 
     private final SortArray sortArray;
