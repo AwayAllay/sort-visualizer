@@ -14,6 +14,7 @@
 package util;
 
 import algorithms.BubbleSort;
+import algorithms.InsertionSort;
 import algorithms.MergeSort;
 import algorithms.SelectionSort;
 
@@ -55,6 +56,11 @@ public class Visualizer {
     public void selectionSort(int speed){
         SelectionSort selectionSort = new SelectionSort(sortArray, speed);
         selectionSort.sort();
+    }
+
+    public void insertionSort(int speed){
+        InsertionSort insertionSort = new InsertionSort(sortArray, speed);
+        insertionSort.sort();
     }
 
     public void randomize(int speed){

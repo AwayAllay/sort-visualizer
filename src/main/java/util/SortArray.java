@@ -83,9 +83,18 @@ public class SortArray extends JPanel {
         super.paintComponent(graphics);
         super.setBackground(Color.BLACK);
 
+        boolean hasChanged = false;
         for (int i = 0; i < data.length; i++) {
 
-            if (data[i] != lastModifiedData[i]) graphics.setColor(Color.RED);
+            if (data[i] != lastModifiedData[i]) {
+                if (hasChanged){
+                    graphics.setColor(Color.GREEN);
+                }
+                else {
+                    graphics.setColor(Color.RED);
+                    hasChanged = true;
+                }
+            }
             else graphics.setColor(Color.WHITE);
 
             graphics.fillRect(barWidth * i, getHeight() - stepHeight * data[i], barWidth, stepHeight * data[i]);
