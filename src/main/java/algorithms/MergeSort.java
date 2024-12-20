@@ -15,6 +15,10 @@ package algorithms;
 
 import util.SortArray;
 
+/**Merge Sort:
+ * Mergesort is a popular sorting algorithm ti sort data. This works by splitting the original data[] in smaller "subarrays".
+ * This way the subarrays can be compared and merged in the correct order. A fast algorithm to use but (always o(nlog(n))) as its downside it
+ * uses a lot of memory, creating all the "subarrays" (o(n)).*/
 public class MergeSort implements SortAlgorithm{
 
     private final SortArray sortArray;
@@ -27,46 +31,50 @@ public class MergeSort implements SortAlgorithm{
 
     @Override
     public void sort() {
-
-        mergeSort(sortArray.getData());
-
+        mergeSort(sortArray.getData(), 0, sortArray.getData().length - 1);
     }
 
-    public void mergeSort(int[] array) {
-        if (array.length < 2) {
-            return;
-        }
+    private void mergeSort(int[] data, int start, int end){
 
-        int mid = array.length / 2;
-        int[] left = new int[mid];
-        int[] right = new int[array.length - mid];
+        if (start >= end) return; //Check if the array is longer than 1 element
 
-        System.arraycopy(array, 0, left, 0, mid);
-        System.arraycopy(array, mid, right, 0, array.length - mid);
+        int mid = start + (end - start) / 2; //Gets the index of the middle of the array
 
-        mergeSort(left);
-        mergeSort(right);
+        mergeSort(data, start, mid); //call method for left half
+        mergeSort(data, mid + 1, end); //class method for right half
 
-        merge(array, left, right);
+        merge(data, start, mid, end); //merge the two arrays
+        sortArray.setData(data); //paints the changes
+        sortArray.sleep(speed);
+        sortArray.repaint();
     }
 
-    private void merge(int[] array, int[] left, int[] right) {
-        int i = 0, j = 0, k = 0;
+    private void merge(int[] data, int start, int mid, int end) {
 
-        while (i < left.length && j < right.length) {
-            if (left[i] <= right[j]) {
-                array[k++] = left[i++];
+        int sizeArray1 = mid - start + 1;
+        int sizeArray2 = end - mid;
+
+        int[] l = new int[sizeArray1];
+        int[] r = new int[sizeArray2];
+
+        System.arraycopy(data, start, l, 0, sizeArray1); //copy values from the data[] into l (left side)
+        System.arraycopy(data, mid + 1, r, 0, sizeArray2); //copy values from the data[] int r (right side)
+
+        int i = 0, j = 0, k = start;
+        while (i < sizeArray1 && j < sizeArray2) { //fills in the data from array l and r in the right order into data[]
+            if (l[i] <= r[j]) {
+                data[k++] = l[i++];
             } else {
-                array[k++] = right[j++];
+                data[k++] = r[j++];
             }
         }
 
-        while (i < left.length) {
-            array[k++] = left[i++];
+        while (i < sizeArray1) {
+            data[k++] = l[i++];
         }
 
-        while (j < right.length) {
-            array[k++] = right[j++];
+        while (j < sizeArray2) {
+            data[k++] = r[j++];
         }
     }
 }

@@ -15,6 +15,7 @@ package util;
 
 import algorithms.BubbleSort;
 import algorithms.MergeSort;
+import algorithms.SelectionSort;
 
 import javax.swing.*;
 import java.awt.*;
@@ -49,6 +50,11 @@ public class Visualizer {
     public void mergeSort(int speed){
         MergeSort mergeSort = new MergeSort(sortArray, speed);
         mergeSort.sort();
+    }
+
+    public void selectionSort(int speed){
+        SelectionSort selectionSort = new SelectionSort(sortArray, speed);
+        selectionSort.sort();
     }
 
     public void randomize(int speed){
