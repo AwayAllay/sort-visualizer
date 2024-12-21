@@ -22,6 +22,7 @@ public class InsertionSort implements SortAlgorithm{
 
     private final SortArray sortArray;
     private final int speed;
+    private boolean isCancelled = false;
 
     public InsertionSort(SortArray sortArray, int speed) {
         this.sortArray = sortArray;
@@ -36,10 +37,13 @@ public class InsertionSort implements SortAlgorithm{
 
         for (int i = 1; i < data.length; i++) {
 
+            if (isCancelled) return;
+
             temp = data[i];
             int j = i;
 
             while (j > 0 && data[j - 1] > temp) {
+                if (isCancelled) return;
                 data[j] = data[j - 1];
                 sortArray.swap(j, j - 1);
                 sortArray.sleep(speed);
@@ -49,5 +53,10 @@ public class InsertionSort implements SortAlgorithm{
 
             data[j] = temp;
         }
+    }
+
+    @Override
+    public void cancel() {
+        isCancelled = true;
     }
 }

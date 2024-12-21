@@ -17,4 +17,5 @@ import util.SortArray;
 
 public interface SortAlgorithm {
     void sort();
+    void cancel();
 }

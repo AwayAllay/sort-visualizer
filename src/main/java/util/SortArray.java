@@ -13,15 +13,16 @@
  */
 package util;
 
+import algorithms.SortAlgorithm;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Random;
 
 public class SortArray extends JPanel {
@@ -33,6 +34,8 @@ public class SortArray extends JPanel {
     private boolean showMenu = false;
     private final Rectangle sorter;
     private final Rectangle randomize;
+    private final Rectangle bar;
+    private SortAlgorithm algorithm = null;
 
     public SortArray(int dataSize) {
         super.setPreferredSize(new Dimension(Visualizer.WINDOW_WIDTH, Visualizer.WINDOW_HEIGHT));
@@ -40,8 +43,10 @@ public class SortArray extends JPanel {
         this.lastModifiedData = data.clone();
         stepHeight = (Visualizer.WINDOW_HEIGHT - 50) / dataSize;
         barWidth = Visualizer.WINDOW_WIDTH / dataSize;
-        sorter = new Rectangle(barWidth / 2, stepHeight, stepHeight * 13, stepHeight * 13);
-        randomize= new Rectangle(barWidth / 2 + stepHeight * 15, stepHeight, stepHeight * 13, stepHeight * 13);
+
+        bar = new Rectangle(0,0, Visualizer.WINDOW_WIDTH, 45);
+        sorter = new Rectangle(10, bar.y + 4, bar.height - 8, bar.height - 8);
+        randomize= new Rectangle(20 + sorter.width, bar.y + 4, bar.height - 8, bar.height - 8);
         for (int i = 1; i < data.length + 1; i++) {
             data[i - 1] = i;
         }
@@ -49,41 +54,18 @@ public class SortArray extends JPanel {
         addListener();
     }
 
-    private void addListener() {
-        addMouseMotionListener(new MouseMotionAdapter() {
-            @Override
-            public void mouseMoved(MouseEvent e) {
-                Point hovered = e.getPoint();
-                showMenu = sorter.contains(hovered);
-                repaint();
-            }
-        });
-        addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseExited(MouseEvent e) {
-                showMenu = false;
-                repaint();
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-                Point pressed = e.getPoint();
-                if (randomize.contains(pressed)){
-                    randomize(5);
-                }
-            }
-        });
-    }
-
     public void randomize(int speed) {
         Random random = new Random();
+
+        if (algorithm != null) algorithm.cancel();
+        sleep(speed);
 
         for (int i = 0; i < data.length; i++) {
             int index1 = random.nextInt(data.length);
             int index2 = random.nextInt(data.length);
             swap(index1, index2);
             sleep(speed);
-            repaint();
+            this.repaint();
         }
 
     }
@@ -126,6 +108,12 @@ public class SortArray extends JPanel {
         boolean hasChanged = false;
 
         paintBar(graphics);
+        paintGraph(hasChanged, graphics);
+
+        lastModifiedData = data.clone();
+    }
+
+    private void paintGraph(boolean hasChanged, Graphics graphics) {
 
         for (int i = 0; i < data.length; i++) {
 
@@ -140,8 +128,18 @@ public class SortArray extends JPanel {
 
             graphics.fillRect(barWidth * i, getHeight() - stepHeight * data[i], barWidth, stepHeight * data[i]);
         }
+    }
 
-        lastModifiedData = data.clone();
+    private void addListener() {
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                Point pressed = e.getPoint();
+                if (randomize.contains(pressed)){
+                    randomize(5);
+                }
+            }
+        });
     }
 
     private void paintBar(Graphics graphics) {
@@ -149,7 +147,7 @@ public class SortArray extends JPanel {
         Graphics2D g2d = (Graphics2D) graphics;
 
         g2d.setColor(Color.GRAY);
-        g2d.fillRect(0, 0, getWidth(), stepHeight * 15);
+        g2d.fill(bar);
 
         if (getImage("sorter.png") != null) {
             g2d.drawImage(getImage("sorter.png"), sorter.x, sorter.y, sorter.width, sorter.height, null);
@@ -171,7 +169,7 @@ public class SortArray extends JPanel {
     private BufferedImage getImage(String picture){
         BufferedImage texture = null;
         try {
-            texture = ImageIO.read(getClass().getResource("/images/" + picture));
+            texture = ImageIO.read(Objects.requireNonNull(getClass().getResource("/images/" + picture)));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -184,5 +182,9 @@ public class SortArray extends JPanel {
 
     public void setData(int[] data) {
         this.data = data;
+    }
+
+    public void setAlgorithm(SortAlgorithm algorithm) {
+        this.algorithm = algorithm;
     }
 }

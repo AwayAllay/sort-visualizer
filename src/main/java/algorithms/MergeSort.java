@@ -23,6 +23,7 @@ public class MergeSort implements SortAlgorithm{
 
     private final SortArray sortArray;
     private final int speed;
+    private boolean isCancelled = false;
 
     public MergeSort(SortArray sortArray, int speed) {
         this.sortArray = sortArray;
@@ -34,9 +35,14 @@ public class MergeSort implements SortAlgorithm{
         mergeSort(sortArray.getData(), 0, sortArray.getData().length - 1);
     }
 
+    @Override
+    public void cancel() {
+        isCancelled = true;
+    }
+
     private void mergeSort(int[] data, int start, int end){
 
-        if (start >= end) return; //Check if the array is longer than 1 element
+        if (start >= end || isCancelled) return; //Check if the array is longer than 1 element
 
         int mid = start + (end - start) / 2; //Gets the index of the middle of the array
 
@@ -62,6 +68,7 @@ public class MergeSort implements SortAlgorithm{
 
         int i = 0, j = 0, k = start;
         while (i < sizeArray1 && j < sizeArray2) { //fills in the data from array l and r in the right order into data[]
+            if (isCancelled) return;
             if (l[i] <= r[j]) {
                 data[k++] = l[i++];
             } else {
@@ -70,10 +77,12 @@ public class MergeSort implements SortAlgorithm{
         }
 
         while (i < sizeArray1) {
+            if (isCancelled) return;
             data[k++] = l[i++];
         }
 
         while (j < sizeArray2) {
+            if (isCancelled) return;
             data[k++] = r[j++];
         }
     }

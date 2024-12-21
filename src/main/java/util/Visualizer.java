@@ -45,21 +45,25 @@ public class Visualizer {
 
     public void bubbleSort(int speed){
         BubbleSort bubbleSort = new BubbleSort(sortArray, speed);
+        sortArray.setAlgorithm(bubbleSort);
         bubbleSort.sort();
     }
 
     public void mergeSort(int speed){
         MergeSort mergeSort = new MergeSort(sortArray, speed);
+        sortArray.setAlgorithm(mergeSort);
         mergeSort.sort();
     }
 
     public void selectionSort(int speed){
         SelectionSort selectionSort = new SelectionSort(sortArray, speed);
+        sortArray.setAlgorithm(selectionSort);
         selectionSort.sort();
     }
 
     public void insertionSort(int speed){
         InsertionSort insertionSort = new InsertionSort(sortArray, speed);
+        sortArray.setAlgorithm(insertionSort);
         insertionSort.sort();
     }
 

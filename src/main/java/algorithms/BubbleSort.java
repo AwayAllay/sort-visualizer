@@ -22,6 +22,7 @@ public class BubbleSort implements SortAlgorithm{
 
     private final SortArray sortArray;
     private final int speed;
+    private boolean isCancelled = false;
 
     public BubbleSort(SortArray sortArray, int speed) {
         this.sortArray = sortArray;
@@ -37,6 +38,8 @@ public class BubbleSort implements SortAlgorithm{
 
             for(int j = 0; j < data.length - i; j++) {
 
+                if (isCancelled) return;
+
                 if (data[j] > data[j + 1]) {
                     sortArray.swap(j, j + 1);
                     sortArray.sleep(speed);
@@ -45,6 +48,11 @@ public class BubbleSort implements SortAlgorithm{
 
             }
         }
+    }
+
+    @Override
+    public void cancel() {
+        isCancelled = true;
     }
 
 }

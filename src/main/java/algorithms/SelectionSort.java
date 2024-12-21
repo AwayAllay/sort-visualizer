@@ -21,6 +21,7 @@ public class SelectionSort implements SortAlgorithm{
 
     private final SortArray sortArray;
     private final int speed;
+    private boolean isCancelled = false;
 
     public SelectionSort(SortArray sortArray, int speed) {
         this.sortArray = sortArray;
@@ -35,6 +36,8 @@ public class SelectionSort implements SortAlgorithm{
         for (int i = 0; i < data.length; i++) {
             for (int j = 0; j < data.length; j++) {
 
+                if (isCancelled) return;
+
                 if (data[i] < data[j]){
                     sortArray.swap(i, j);
                     sortArray.repaint();
@@ -42,5 +45,10 @@ public class SelectionSort implements SortAlgorithm{
                 }
             }
         }
+    }
+
+    @Override
+    public void cancel() {
+        isCancelled = true;
     }
 }
