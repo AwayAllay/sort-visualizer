@@ -45,7 +45,6 @@ public class BubbleSort implements SortAlgorithm{
 
             }
         }
-
     }
 
 }
