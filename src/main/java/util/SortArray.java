@@ -22,6 +22,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.security.SecureRandom;
 import java.util.Objects;
 import java.util.Random;
 
@@ -36,12 +37,14 @@ public class SortArray extends JPanel {
     private final Rectangle randomize;
     private final Rectangle bar;
     private SortAlgorithm algorithm = null;
+    private final Visualizer visualizer;
 
-    public SortArray(int dataSize) {
+    public SortArray(int dataSize, Visualizer visualizer) {
         super.setPreferredSize(new Dimension(Visualizer.WINDOW_WIDTH, Visualizer.WINDOW_HEIGHT));
 
         this.data = new int[dataSize];
         this.lastModifiedData = data.clone();
+        this.visualizer = visualizer;
 
         stepHeight = (Visualizer.WINDOW_HEIGHT - 50) / dataSize;
         System.out.println(Visualizer.WINDOW_HEIGHT +"-" + 50 + "/" + dataSize + "=" + stepHeight);
@@ -59,13 +62,13 @@ public class SortArray extends JPanel {
         addListener();
     }
 
-    public void randomize(int speed) { //TODO bug fix when randomized via button
+    public void randomize(int speed) {
         Random random = new Random();
 
         if (algorithm != null) algorithm.cancel();
         sleep(speed);
 
-        for (int i = 0; i < data.length; i++) {
+        for (int i = 0; i < data.length * 2; i++) {
             int index1 = random.nextInt(data.length);
             int index2 = random.nextInt(data.length);
             swap(index1, index2);
@@ -141,7 +144,7 @@ public class SortArray extends JPanel {
             public void mousePressed(MouseEvent e) {
                 Point pressed = e.getPoint();
                 if (randomize.contains(pressed)){
-                    randomize(5);
+                    new Thread(() -> randomize(5)).start();
                 }
             }
         });
