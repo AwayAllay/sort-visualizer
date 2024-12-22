@@ -39,14 +39,19 @@ public class SortArray extends JPanel {
 
     public SortArray(int dataSize) {
         super.setPreferredSize(new Dimension(Visualizer.WINDOW_WIDTH, Visualizer.WINDOW_HEIGHT));
+
         this.data = new int[dataSize];
         this.lastModifiedData = data.clone();
+
         stepHeight = (Visualizer.WINDOW_HEIGHT - 50) / dataSize;
+        System.out.println(Visualizer.WINDOW_HEIGHT +"-" + 50 + "/" + dataSize + "=" + stepHeight);
         barWidth = Visualizer.WINDOW_WIDTH / dataSize;
+        System.out.println(Visualizer.WINDOW_WIDTH +"/" + dataSize + "=" + barWidth);
 
         bar = new Rectangle(0,0, Visualizer.WINDOW_WIDTH, 45);
         sorter = new Rectangle(10, bar.y + 4, bar.height - 8, bar.height - 8);
         randomize= new Rectangle(20 + sorter.width, bar.y + 4, bar.height - 8, bar.height - 8);
+
         for (int i = 1; i < data.length + 1; i++) {
             data[i - 1] = i;
         }
@@ -54,7 +59,7 @@ public class SortArray extends JPanel {
         addListener();
     }
 
-    public void randomize(int speed) {
+    public void randomize(int speed) { //TODO bug fix when randomized via button
         Random random = new Random();
 
         if (algorithm != null) algorithm.cancel();

@@ -24,8 +24,7 @@ import java.awt.*;
 public class Visualizer {
     public static final int WINDOW_WIDTH = 1000;
     public static final int WINDOW_HEIGHT = WINDOW_WIDTH * 9 / 16;
-    private JFrame frame;
-    SortArray sortArray;
+    private final SortArray sortArray;
 
     public Visualizer(int dataSize){
         sortArray = new SortArray(dataSize);
@@ -34,7 +33,7 @@ public class Visualizer {
     }
 
     private void setupFrame() {
-        frame = new JFrame("Sorting visualizer");
+        JFrame frame = new JFrame("Sorting visualizer");
         frame.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setBackground(Color.BLACK);
