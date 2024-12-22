@@ -22,17 +22,14 @@ import java.util.Random;
 public class SortArray extends JPanel {
     private int[] data;
     private int[] lastModifiedData;
-    private boolean showMenu = false;
     private SortAlgorithm algorithm = null;
-    private final Visualizer visualizer;
     private final Painter painter;
 
-    public SortArray(int dataSize, Visualizer visualizer) {
+    public SortArray(int dataSize) {
         super.setPreferredSize(new Dimension(Visualizer.WINDOW_WIDTH, Visualizer.WINDOW_HEIGHT));
 
         this.data = new int[dataSize];
         this.lastModifiedData = data.clone();
-        this.visualizer = visualizer;
         painter = new Painter(this);
 
         for (int i = 1; i < data.length + 1; i++) {
@@ -74,8 +71,6 @@ public class SortArray extends JPanel {
     @Override
     public void paintComponent(Graphics graphics) {
         super.paintComponent(graphics);
-        super.setBackground(Color.BLACK);
-
         painter.paint(graphics);
         lastModifiedData = data.clone();
     }

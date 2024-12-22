@@ -39,8 +39,6 @@ public class Painter {
         bar = new Rectangle(0,0, Visualizer.WINDOW_WIDTH, 45);
         sorter = new Rectangle(10, bar.y + 4, bar.height - 8, bar.height - 8);
         randomize= new Rectangle(20 + sorter.width, bar.y + 4, bar.height - 8, bar.height - 8);
-
-
     }
 
     private void addListener() {
@@ -56,6 +54,8 @@ public class Painter {
     }
 
     public void paint(Graphics graphics){
+
+        sortArray.setBackground(Color.BLACK);
 
         boolean hasChanged = false;
 
