@@ -15,7 +15,10 @@ package algorithms;
 
 import util.SortArray;
 
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.Objects;
 
 /**Insertionsort is really similar to Selectionsort with the difference that Insertionsort starts left and looks for
  * the next right value and places it in the correct order in the left side. THis makes it, again, good for smaller arrays,
@@ -65,9 +68,10 @@ public class InsertionSort implements SortAlgorithm{
     public void reset() {
         isCancelled = false;
     }
-
     @Override
-    public BufferedImage getImage() {
-        return null;
+    public String name() {
+        return "Insertionsort";
     }
+
+
 }

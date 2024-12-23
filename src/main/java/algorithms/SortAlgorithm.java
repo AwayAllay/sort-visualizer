@@ -18,6 +18,6 @@ import java.awt.image.BufferedImage;
 public interface SortAlgorithm {
     void sort();
     void cancel();
-    BufferedImage getImage();
     void reset();
+    String name();
 }

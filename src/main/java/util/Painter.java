@@ -14,6 +14,9 @@
 package util;
 
 import algorithms.BubbleSort;
+import algorithms.InsertionSort;
+import algorithms.MergeSort;
+import algorithms.SelectionSort;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -28,7 +31,7 @@ public class Painter {
     private final SortArray sortArray;
     private final Rectangle sorter;
     private final Rectangle sort;
-    private final Rectangle bubbleSort;
+    private final Rectangle bubbleSort;//TODO new sorts
     private final Rectangle insertionSort;
     private final Rectangle mergeSort;
     private final Rectangle selectionSort;
@@ -53,31 +56,49 @@ public class Painter {
         sort = new Rectangle(70 + randomize.width, bar.y + 4, bar.height - 8, bar.height - 8);
 
         bubbleSort = new Rectangle(10, sorter.y + 37, 150, 60);
-        insertionSort = new Rectangle(10, bubbleSort.y - 20, 50, 20);
-        mergeSort = new Rectangle(10, insertionSort.y - 20, 50, 20);
-        selectionSort = new Rectangle(10, mergeSort.y - 20, 50, 20);
+        insertionSort = new Rectangle(10, bubbleSort.y + 60, 150, 60);
+        mergeSort = new Rectangle(10, insertionSort.y + 60, 150, 60);
+        selectionSort = new Rectangle(10, mergeSort.y + 60, 150, 60);
     }
 
     private void addListener() {
-        sortArray.addMouseListener(new MouseAdapter() {
+        sortArray.addMouseListener(new MouseAdapter() {//TODO new sorts
             @Override
             public void mousePressed(MouseEvent e) {
                 Point pressed = e.getPoint();
                 if (randomize.contains(pressed)) {
                     new Thread(() -> sortArray.randomize(5)).start();
-                } else if (sort.contains(pressed)) {
+                }
+                else if (sort.contains(pressed)) {
                     new Thread(() -> visualizer.sort(1)).start();
-                } else if (bubbleSort.contains(pressed)) {
+                }
+                else if (bubbleSort.contains(pressed)) {
                     sortArray.setAlgorithm(new BubbleSort(sortArray, 1));
+                    showMenu = false;
+                }
+                else if (insertionSort.contains(pressed)) {
+                    sortArray.setAlgorithm(new InsertionSort(sortArray, 1));
+                    showMenu = false;
+                }
+                else if (mergeSort.contains(pressed)) {
+                    sortArray.setAlgorithm(new MergeSort(sortArray, 1));
+                    showMenu = false;
+                }
+                else if (selectionSort.contains(pressed)) {
+                    sortArray.setAlgorithm(new SelectionSort(sortArray, 1));
+                    showMenu = false;
                 }
                 sortArray.repaint();
             }
         });
-        sortArray.addMouseMotionListener(new MouseMotionAdapter() {
+        sortArray.addMouseMotionListener(new MouseMotionAdapter() {//TODO new sorts
             @Override
             public void mouseMoved(MouseEvent e) {
                 Point mousePos = e.getPoint();
                 if (showMenu && bubbleSort.contains(mousePos)) showMenu = true;
+                else if (showMenu && insertionSort.contains(mousePos)) showMenu = true;
+                else if (showMenu && mergeSort.contains(mousePos)) showMenu = true;
+                else if (showMenu && selectionSort.contains(mousePos)) showMenu = true;
                 else showMenu = sorter.contains(mousePos);
                 sortArray.repaint();
             }
@@ -95,17 +116,26 @@ public class Painter {
         if (showMenu) paintMenu(graphics);
     }
 
-    private void paintMenu(Graphics graphics) {
+    private void paintMenu(Graphics graphics) {//TODO new sorts
 
         Graphics2D g2d = (Graphics2D) graphics;
 
-        if (getImage("bubble.png") != null) {
-            g2d.drawImage(getImage("bubble.png"), bubbleSort.x, bubbleSort.y, bubbleSort.width, bubbleSort.height, null);
+        if (getImage("background.png") != null) {
+            g2d.drawImage(getImage("background.png"), bubbleSort.x, bubbleSort.y, bubbleSort.width, bubbleSort.height, null);
+            g2d.drawImage(getImage("background.png"), insertionSort.x, insertionSort.y, insertionSort.width, insertionSort.height, null);
+            g2d.drawImage(getImage("background.png"), mergeSort.x, mergeSort.y, mergeSort.width, mergeSort.height, null);
+            g2d.drawImage(getImage("background.png"), selectionSort.x, selectionSort.y, selectionSort.width, selectionSort.height, null);
         } else {
             g2d.setColor(Color.BLUE);
             g2d.fill(bubbleSort);
         }
 
+        g2d.setColor(Color.WHITE);
+        g2d.setFont(new Font("Arial", Font.BOLD, 20));
+        g2d.drawString(new BubbleSort(sortArray, 0).name(), bubbleSort.x + 20, bubbleSort.y + 35);
+        g2d.drawString( new InsertionSort(sortArray, 0).name(), insertionSort.x + 15, insertionSort.y + 35);
+        g2d.drawString(new MergeSort(sortArray, 0).name(), mergeSort.x + 25, mergeSort.y + 35);
+        g2d.drawString(new SelectionSort(sortArray, 0).name(), selectionSort.x + 15, selectionSort.y + 35);
 
     }
 
@@ -155,6 +185,15 @@ public class Painter {
         } else {
             g2d.setColor(Color.GREEN);
             g2d.fill(sort);
+        }
+
+        g2d.setColor(Color.WHITE);
+        g2d.setFont(new Font("Arial", Font.BOLD, sort.height));
+        if (sortArray.getAlgorithm() == null){
+            g2d.drawString("Algorithm: (select algorithm)", sort.x + sort.width + 10, sort.y + sort.height - 4);
+        }
+        else {
+            g2d.drawString("Algorithm: " + sortArray.getAlgorithm().name(), sort.x + sort.width + 10, sort.y + sort.height - 4);
         }
     }
 

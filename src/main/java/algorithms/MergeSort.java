@@ -15,7 +15,10 @@ package algorithms;
 
 import util.SortArray;
 
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.Objects;
 
 /**Merge Sort:
  * Mergesort is a popular sorting algorithm ti sort data. This works by splitting the original data[] in smaller "subarrays".
@@ -45,11 +48,12 @@ public class MergeSort implements SortAlgorithm{
     public void reset() {
         isCancelled = false;
     }
-
     @Override
-    public BufferedImage getImage() {
-        return null;
+    public String name() {
+        return "Mergesort";
     }
+
+
 
     private void mergeSort(int[] data, int start, int end){
 

@@ -61,20 +61,15 @@ public class BubbleSort implements SortAlgorithm{
         isCancelled = true;
     }
 
-    @Override
-    public BufferedImage getImage() {
-        BufferedImage texture = null;
-        try {
-            texture = ImageIO.read(Objects.requireNonNull(getClass().getResource("/images/bubble.png")));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return texture;
-    }
 
     @Override
     public void reset() {
         isCancelled = false;
+    }
+
+    @Override
+    public String name() {
+        return "Bubblesort";
     }
 
 }
