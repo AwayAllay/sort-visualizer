@@ -3,7 +3,7 @@ import util.Visualizer;
 public class Main {
     public static void main(String[] args) {
 
-        Visualizer visualizer = new Visualizer(100);
+        Visualizer visualizer = new Visualizer(500);
 //für 1000
 //        10
 //        20

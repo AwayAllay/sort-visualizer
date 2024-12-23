@@ -73,19 +73,19 @@ public class Painter {
                     new Thread(() -> visualizer.sort(1)).start();
                 }
                 else if (bubbleSort.contains(pressed)) {
-                    sortArray.setAlgorithm(new BubbleSort(sortArray, 1));
+                    sortArray.setAlgorithm(new BubbleSort(sortArray, 5));
                     showMenu = false;
                 }
                 else if (insertionSort.contains(pressed)) {
-                    sortArray.setAlgorithm(new InsertionSort(sortArray, 1));
+                    sortArray.setAlgorithm(new InsertionSort(sortArray, 5));
                     showMenu = false;
                 }
                 else if (mergeSort.contains(pressed)) {
-                    sortArray.setAlgorithm(new MergeSort(sortArray, 1));
+                    sortArray.setAlgorithm(new MergeSort(sortArray, 5));
                     showMenu = false;
                 }
                 else if (selectionSort.contains(pressed)) {
-                    sortArray.setAlgorithm(new SelectionSort(sortArray, 1));
+                    sortArray.setAlgorithm(new SelectionSort(sortArray, 5));
                     showMenu = false;
                 }
                 sortArray.repaint();
