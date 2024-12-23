@@ -32,7 +32,7 @@ public class SortArray extends JPanel {
 
         this.data = new int[dataSize];
         this.lastModifiedData = data.clone();
-        painter = new Painter(this, visualizer);
+        painter = new Painter(this);
 
         for (int i = 1; i < data.length + 1; i++) {
             data[i - 1] = i;
@@ -77,7 +77,7 @@ public class SortArray extends JPanel {
     }
 
     public void sort(){
-        if (!isRandomizing && algorithm != null) algorithm.sort(this, speed);
+        if (!isRandomizing && algorithm != null) algorithm.sort(this);
     }
 
     @Override

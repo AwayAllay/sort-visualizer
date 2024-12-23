@@ -27,7 +27,7 @@ public class BubbleSort implements SortAlgorithm{
     private boolean isCancelled = false;
 
     @Override
-    public void sort(SortArray sortArray, int speed){
+    public void sort(SortArray sortArray){
 
         int[] data = sortArray.getData();
 
@@ -39,7 +39,7 @@ public class BubbleSort implements SortAlgorithm{
 
                 if (data[j] > data[j + 1]) {
                     sortArray.swap(j, j + 1);
-                    sortArray.sleep(speed);
+                    sortArray.sleep(sortArray.getSpeed());
                     sortArray.repaint();
                 }
 

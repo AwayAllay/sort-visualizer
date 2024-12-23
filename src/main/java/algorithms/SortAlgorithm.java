@@ -18,7 +18,7 @@ import util.SortArray;
 import java.awt.image.BufferedImage;
 
 public interface SortAlgorithm {
-    void sort(SortArray sortArray, int speed);
+    void sort(SortArray sortArray);
     void cancel();
     void reset();
     String name();

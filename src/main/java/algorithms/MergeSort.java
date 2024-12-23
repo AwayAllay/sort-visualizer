@@ -15,11 +15,6 @@ package algorithms;
 
 import util.SortArray;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.util.Objects;
-
 /**Merge Sort:
  * Mergesort is a popular sorting algorithm ti sort data. This works by splitting the original data[] in smaller "subarrays".
  * This way the subarrays can be compared and merged in the correct order. A fast algorithm to use but (always o(nlog(n))) as its downside it
@@ -28,8 +23,8 @@ public class MergeSort implements SortAlgorithm{
     private boolean isCancelled = false;
 
     @Override
-    public void sort(SortArray sortArray, int speed) {
-        mergeSort(sortArray.getData(), 0, sortArray.getData().length - 1, sortArray, speed);
+    public void sort(SortArray sortArray) {
+        mergeSort(sortArray.getData(), 0, sortArray.getData().length - 1, sortArray);
     }
 
     @Override
@@ -47,18 +42,18 @@ public class MergeSort implements SortAlgorithm{
 
 
 
-    private void mergeSort(int[] data, int start, int end, SortArray sortArray, int speed){
+    private void mergeSort(int[] data, int start, int end, SortArray sortArray){
 
         if (start >= end || isCancelled) return; //Check if the array is longer than 1 element
 
         int mid = start + (end - start) / 2; //Gets the index of the middle of the array
 
-        mergeSort(data, start, mid, sortArray, speed); //call method for left half
-        mergeSort(data, mid + 1, end, sortArray, speed); //class method for right half
+        mergeSort(data, start, mid, sortArray); //call method for left half
+        mergeSort(data, mid + 1, end, sortArray); //class method for right half
 
         merge(data, start, mid, end); //merge the two arrays
         sortArray.setData(data); //paints the changes
-        sortArray.sleep(speed);
+        sortArray.sleep(sortArray.getSpeed());
         sortArray.repaint();
     }
 

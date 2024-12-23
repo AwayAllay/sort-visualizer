@@ -27,7 +27,7 @@ public class InsertionSort implements SortAlgorithm{
     private boolean isCancelled = false;
 
     @Override
-    public void sort(SortArray sortArray, int speed) {
+    public void sort(SortArray sortArray) {
 
         int[] data = sortArray.getData();
         int temp;
@@ -43,7 +43,7 @@ public class InsertionSort implements SortAlgorithm{
                 if (isCancelled) return;
                 data[j] = data[j - 1];
                 sortArray.swap(j, j - 1);
-                sortArray.sleep(speed);
+                sortArray.sleep(sortArray.getSpeed());
                 sortArray.repaint();
                 j--;
             }

@@ -34,6 +34,7 @@ public class Visualizer {
         frame.setBackground(Color.BLACK);
         frame.add(sortArray);
         frame.pack();
+        frame.setLayout(null);
         frame.setVisible(true);
     }
 }

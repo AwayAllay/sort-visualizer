@@ -19,12 +19,16 @@ import algorithms.MergeSort;
 import algorithms.SelectionSort;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Hashtable;
 import java.util.Objects;
 
 public class Painter {
@@ -40,11 +44,11 @@ public class Painter {
     private final int stepHeight;
     private final int barWidth;
     private boolean showMenu = false;
-    private final Visualizer visualizer;
+    private JSlider slider;
 
-    public Painter(SortArray sortArray, Visualizer visualizer) {
+
+    public Painter(SortArray sortArray) {
         this.sortArray = sortArray;
-        this.visualizer = visualizer;
         addListener();
 
         stepHeight = (Visualizer.WINDOW_HEIGHT - 50) / sortArray.getData().length;
@@ -59,6 +63,20 @@ public class Painter {
         insertionSort = new Rectangle(10, bubbleSort.y + 60, 150, 60);
         mergeSort = new Rectangle(10, insertionSort.y + 60, 150, 60);
         selectionSort = new Rectangle(10, mergeSort.y + 60, 150, 60);
+
+        setUpSlider();
+        sortArray.add(slider);
+    }
+
+    private void setUpSlider() {
+        slider = new JSlider(JSlider.HORIZONTAL, 1, 100, 1);
+        slider.setBounds(new Rectangle(900, bar.y + 4, 150, 20));
+        slider.setLocation(900, 10);
+        slider.addChangeListener(e -> {
+            int speed = slider.getValue();
+            sortArray.setSpeed(speed);
+            sortArray.repaint();
+        });
     }
 
     private void addListener() {
@@ -68,23 +86,18 @@ public class Painter {
                 Point pressed = e.getPoint();
                 if (randomize.contains(pressed)) {
                     new Thread(sortArray::randomize).start();
-                }
-                else if (sort.contains(pressed)) {
+                } else if (sort.contains(pressed)) {
                     new Thread(sortArray::sort).start();
-                }
-                else if (bubbleSort.contains(pressed)) {
+                } else if (bubbleSort.contains(pressed)) {
                     sortArray.setAlgorithm(new BubbleSort());
                     showMenu = false;
-                }
-                else if (insertionSort.contains(pressed)) {
+                } else if (insertionSort.contains(pressed)) {
                     sortArray.setAlgorithm(new InsertionSort());
                     showMenu = false;
-                }
-                else if (mergeSort.contains(pressed)) {
+                } else if (mergeSort.contains(pressed)) {
                     sortArray.setAlgorithm(new MergeSort());
                     showMenu = false;
-                }
-                else if (selectionSort.contains(pressed)) {
+                } else if (selectionSort.contains(pressed)) {
                     sortArray.setAlgorithm(new SelectionSort());
                     showMenu = false;
                 }
@@ -133,7 +146,7 @@ public class Painter {
         g2d.setColor(Color.WHITE);
         g2d.setFont(new Font("Arial", Font.BOLD, 20));
         g2d.drawString(new BubbleSort().name(), bubbleSort.x + 20, bubbleSort.y + 35);
-        g2d.drawString( new InsertionSort().name(), insertionSort.x + 15, insertionSort.y + 35);
+        g2d.drawString(new InsertionSort().name(), insertionSort.x + 15, insertionSort.y + 35);
         g2d.drawString(new MergeSort().name(), mergeSort.x + 25, mergeSort.y + 35);
         g2d.drawString(new SelectionSort().name(), selectionSort.x + 15, selectionSort.y + 35);
 
@@ -189,10 +202,9 @@ public class Painter {
 
         g2d.setColor(Color.WHITE);
         g2d.setFont(new Font("Arial", Font.BOLD, sort.height));
-        if (sortArray.getAlgorithm() == null){
+        if (sortArray.getAlgorithm() == null) {
             g2d.drawString("Algorithm: (select algorithm)", sort.x + sort.width + 10, sort.y + sort.height - 4);
-        }
-        else {
+        } else {
             g2d.drawString("Algorithm: " + sortArray.getAlgorithm().name(), sort.x + sort.width + 10, sort.y + sort.height - 4);
         }
 
