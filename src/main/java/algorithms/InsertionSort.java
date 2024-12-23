@@ -15,6 +15,8 @@ package algorithms;
 
 import util.SortArray;
 
+import java.awt.image.BufferedImage;
+
 /**Insertionsort is really similar to Selectionsort with the difference that Insertionsort starts left and looks for
  * the next right value and places it in the correct order in the left side. THis makes it, again, good for smaller arrays,
  * but it gets very inefficient for larger ones (o(n²) worst-/ o(n) best- case).*/
@@ -58,5 +60,14 @@ public class InsertionSort implements SortAlgorithm{
     @Override
     public void cancel() {
         isCancelled = true;
+    }
+    @Override
+    public void reset() {
+        isCancelled = false;
+    }
+
+    @Override
+    public BufferedImage getImage() {
+        return null;
     }
 }

@@ -13,11 +13,6 @@
  */
 package util;
 
-import algorithms.BubbleSort;
-import algorithms.InsertionSort;
-import algorithms.MergeSort;
-import algorithms.SelectionSort;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -27,7 +22,7 @@ public class Visualizer {
     private final SortArray sortArray;
 
     public Visualizer(int dataSize){
-        sortArray = new SortArray(dataSize);
+        sortArray = new SortArray(dataSize, this);
         setupFrame();
         sortArray.repaint();
     }
@@ -42,31 +37,7 @@ public class Visualizer {
         frame.setVisible(true);
     }
 
-    public void bubbleSort(int speed){
-        BubbleSort bubbleSort = new BubbleSort(sortArray, speed);
-        sortArray.setAlgorithm(bubbleSort);
-        bubbleSort.sort();
-    }
-
-    public void mergeSort(int speed){
-        MergeSort mergeSort = new MergeSort(sortArray, speed);
-        sortArray.setAlgorithm(mergeSort);
-        mergeSort.sort();
-    }
-
-    public void selectionSort(int speed){
-        SelectionSort selectionSort = new SelectionSort(sortArray, speed);
-        sortArray.setAlgorithm(selectionSort);
-        selectionSort.sort();
-    }
-
-    public void insertionSort(int speed){
-        InsertionSort insertionSort = new InsertionSort(sortArray, speed);
-        sortArray.setAlgorithm(insertionSort);
-        insertionSort.sort();
-    }
-
-    public void randomize(int speed){
-        sortArray.randomize(speed);
+    public void sort(int speed){
+        sortArray.sort(speed);
     }
 }

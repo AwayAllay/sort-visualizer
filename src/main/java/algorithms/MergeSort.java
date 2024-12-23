@@ -15,6 +15,8 @@ package algorithms;
 
 import util.SortArray;
 
+import java.awt.image.BufferedImage;
+
 /**Merge Sort:
  * Mergesort is a popular sorting algorithm ti sort data. This works by splitting the original data[] in smaller "subarrays".
  * This way the subarrays can be compared and merged in the correct order. A fast algorithm to use but (always o(nlog(n))) as its downside it
@@ -38,6 +40,15 @@ public class MergeSort implements SortAlgorithm{
     @Override
     public void cancel() {
         isCancelled = true;
+    }
+    @Override
+    public void reset() {
+        isCancelled = false;
+    }
+
+    @Override
+    public BufferedImage getImage() {
+        return null;
     }
 
     private void mergeSort(int[] data, int start, int end){

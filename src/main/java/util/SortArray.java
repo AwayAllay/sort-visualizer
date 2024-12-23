@@ -17,6 +17,7 @@ import algorithms.SortAlgorithm;
 
 import javax.swing.*;
 import java.awt.*;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
 
 public class SortArray extends JPanel {
@@ -24,13 +25,14 @@ public class SortArray extends JPanel {
     private int[] lastModifiedData;
     private SortAlgorithm algorithm = null;
     private final Painter painter;
+    private boolean isRandomizing = false;
 
-    public SortArray(int dataSize) {
+    public SortArray(int dataSize, Visualizer visualizer) {
         super.setPreferredSize(new Dimension(Visualizer.WINDOW_WIDTH, Visualizer.WINDOW_HEIGHT));
 
         this.data = new int[dataSize];
         this.lastModifiedData = data.clone();
-        painter = new Painter(this);
+        painter = new Painter(this, visualizer);
 
         for (int i = 1; i < data.length + 1; i++) {
             data[i - 1] = i;
@@ -38,9 +40,14 @@ public class SortArray extends JPanel {
     }
 
     public void randomize(int speed) {
+        isRandomizing = true;
         Random random = new Random();
 
-        if (algorithm != null) algorithm.cancel();
+        if (algorithm != null) {
+            algorithm.cancel();
+            sleep(100);
+            algorithm.reset();
+        }
         sleep(speed);
 
         for (int i = 0; i < data.length * 2; i++) {
@@ -51,6 +58,7 @@ public class SortArray extends JPanel {
             this.repaint();
         }
 
+        isRandomizing = false;
     }
 
     public void swap(int index1, int index2) {
@@ -66,6 +74,10 @@ public class SortArray extends JPanel {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void sort(int speed){
+        if (!isRandomizing && algorithm != null) algorithm.sort();
     }
 
     @Override
@@ -89,5 +101,9 @@ public class SortArray extends JPanel {
 
     public void setAlgorithm(SortAlgorithm algorithm) {
         this.algorithm = algorithm;
+    }
+
+    public SortAlgorithm getAlgorithm() {
+        return algorithm;
     }
 }

@@ -13,9 +13,11 @@
  */
 package algorithms;
 
-import util.SortArray;
+import java.awt.image.BufferedImage;
 
 public interface SortAlgorithm {
     void sort();
     void cancel();
+    BufferedImage getImage();
+    void reset();
 }
