@@ -23,18 +23,10 @@ import java.util.Objects;
 /**Selection sort is a sort algorithm that finds the min value in an array and swaps it to its correct place.
  * o(n²) in worst case, o(n) in best case. But because it goes through the array several times, this algorithm is pretty inefficient. */
 public class SelectionSort implements SortAlgorithm{
-
-    private final SortArray sortArray;
-    private final int speed;
     private boolean isCancelled = false;
 
-    public SelectionSort(SortArray sortArray, int speed) {
-        this.sortArray = sortArray;
-        this.speed = speed;
-    }
-
     @Override
-    public void sort() {
+    public void sort(SortArray sortArray, int speed) {
 
         int[] data = sortArray.getData();
 

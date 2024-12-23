@@ -25,19 +25,11 @@ import java.util.Objects;
  * This way the subarrays can be compared and merged in the correct order. A fast algorithm to use but (always o(nlog(n))) as its downside it
  * uses a lot of memory, creating all the "subarrays" (o(n)).*/
 public class MergeSort implements SortAlgorithm{
-
-    private final SortArray sortArray;
-    private final int speed;
     private boolean isCancelled = false;
 
-    public MergeSort(SortArray sortArray, int speed) {
-        this.sortArray = sortArray;
-        this.speed = speed;
-    }
-
     @Override
-    public void sort() {
-        mergeSort(sortArray.getData(), 0, sortArray.getData().length - 1);
+    public void sort(SortArray sortArray, int speed) {
+        mergeSort(sortArray.getData(), 0, sortArray.getData().length - 1, sortArray, speed);
     }
 
     @Override
@@ -55,14 +47,14 @@ public class MergeSort implements SortAlgorithm{
 
 
 
-    private void mergeSort(int[] data, int start, int end){
+    private void mergeSort(int[] data, int start, int end, SortArray sortArray, int speed){
 
         if (start >= end || isCancelled) return; //Check if the array is longer than 1 element
 
         int mid = start + (end - start) / 2; //Gets the index of the middle of the array
 
-        mergeSort(data, start, mid); //call method for left half
-        mergeSort(data, mid + 1, end); //class method for right half
+        mergeSort(data, start, mid, sortArray, speed); //call method for left half
+        mergeSort(data, mid + 1, end, sortArray, speed); //class method for right half
 
         merge(data, start, mid, end); //merge the two arrays
         sortArray.setData(data); //paints the changes

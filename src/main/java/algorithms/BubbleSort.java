@@ -24,18 +24,10 @@ import java.util.Objects;
  * It is a pretty slow algorithm (average; o(n²)) but is nice to look at and uses very little memory(o(1)).*/
 
 public class BubbleSort implements SortAlgorithm{
-
-    private final SortArray sortArray;
-    private final int speed;
     private boolean isCancelled = false;
 
-    public BubbleSort(SortArray sortArray, int speed) {
-        this.sortArray = sortArray;
-        this.speed = speed;
-    }
-
     @Override
-    public void sort(){
+    public void sort(SortArray sortArray, int speed){
 
         int[] data = sortArray.getData();
 

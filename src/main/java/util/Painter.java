@@ -67,25 +67,25 @@ public class Painter {
             public void mousePressed(MouseEvent e) {
                 Point pressed = e.getPoint();
                 if (randomize.contains(pressed)) {
-                    new Thread(() -> sortArray.randomize(5)).start();
+                    new Thread(sortArray::randomize).start();
                 }
                 else if (sort.contains(pressed)) {
-                    new Thread(() -> visualizer.sort(1)).start();
+                    new Thread(sortArray::sort).start();
                 }
                 else if (bubbleSort.contains(pressed)) {
-                    sortArray.setAlgorithm(new BubbleSort(sortArray, 5));
+                    sortArray.setAlgorithm(new BubbleSort());
                     showMenu = false;
                 }
                 else if (insertionSort.contains(pressed)) {
-                    sortArray.setAlgorithm(new InsertionSort(sortArray, 5));
+                    sortArray.setAlgorithm(new InsertionSort());
                     showMenu = false;
                 }
                 else if (mergeSort.contains(pressed)) {
-                    sortArray.setAlgorithm(new MergeSort(sortArray, 5));
+                    sortArray.setAlgorithm(new MergeSort());
                     showMenu = false;
                 }
                 else if (selectionSort.contains(pressed)) {
-                    sortArray.setAlgorithm(new SelectionSort(sortArray, 5));
+                    sortArray.setAlgorithm(new SelectionSort());
                     showMenu = false;
                 }
                 sortArray.repaint();
@@ -132,10 +132,10 @@ public class Painter {
 
         g2d.setColor(Color.WHITE);
         g2d.setFont(new Font("Arial", Font.BOLD, 20));
-        g2d.drawString(new BubbleSort(sortArray, 0).name(), bubbleSort.x + 20, bubbleSort.y + 35);
-        g2d.drawString( new InsertionSort(sortArray, 0).name(), insertionSort.x + 15, insertionSort.y + 35);
-        g2d.drawString(new MergeSort(sortArray, 0).name(), mergeSort.x + 25, mergeSort.y + 35);
-        g2d.drawString(new SelectionSort(sortArray, 0).name(), selectionSort.x + 15, selectionSort.y + 35);
+        g2d.drawString(new BubbleSort().name(), bubbleSort.x + 20, bubbleSort.y + 35);
+        g2d.drawString( new InsertionSort().name(), insertionSort.x + 15, insertionSort.y + 35);
+        g2d.drawString(new MergeSort().name(), mergeSort.x + 25, mergeSort.y + 35);
+        g2d.drawString(new SelectionSort().name(), selectionSort.x + 15, selectionSort.y + 35);
 
     }
 
@@ -195,6 +195,7 @@ public class Painter {
         else {
             g2d.drawString("Algorithm: " + sortArray.getAlgorithm().name(), sort.x + sort.width + 10, sort.y + sort.height - 4);
         }
+
     }
 
     private BufferedImage getImage(String picture) {

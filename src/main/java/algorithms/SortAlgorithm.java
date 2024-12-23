@@ -13,10 +13,12 @@
  */
 package algorithms;
 
+import util.SortArray;
+
 import java.awt.image.BufferedImage;
 
 public interface SortAlgorithm {
-    void sort();
+    void sort(SortArray sortArray, int speed);
     void cancel();
     void reset();
     String name();

@@ -17,7 +17,6 @@ import algorithms.SortAlgorithm;
 
 import javax.swing.*;
 import java.awt.*;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
 
 public class SortArray extends JPanel {
@@ -26,6 +25,7 @@ public class SortArray extends JPanel {
     private SortAlgorithm algorithm = null;
     private final Painter painter;
     private boolean isRandomizing = false;
+    private int speed = 1;
 
     public SortArray(int dataSize, Visualizer visualizer) {
         super.setPreferredSize(new Dimension(Visualizer.WINDOW_WIDTH, Visualizer.WINDOW_HEIGHT));
@@ -39,7 +39,7 @@ public class SortArray extends JPanel {
         }
     }
 
-    public void randomize(int speed) {
+    public void randomize() {
         isRandomizing = true;
         Random random = new Random();
 
@@ -76,8 +76,8 @@ public class SortArray extends JPanel {
         }
     }
 
-    public void sort(int speed){
-        if (!isRandomizing && algorithm != null) algorithm.sort();
+    public void sort(){
+        if (!isRandomizing && algorithm != null) algorithm.sort(this, speed);
     }
 
     @Override
@@ -105,5 +105,13 @@ public class SortArray extends JPanel {
 
     public SortAlgorithm getAlgorithm() {
         return algorithm;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    public int getSpeed() {
+        return speed;
     }
 }

@@ -24,18 +24,10 @@ import java.util.Objects;
  * the next right value and places it in the correct order in the left side. THis makes it, again, good for smaller arrays,
  * but it gets very inefficient for larger ones (o(n²) worst-/ o(n) best- case).*/
 public class InsertionSort implements SortAlgorithm{
-
-    private final SortArray sortArray;
-    private final int speed;
     private boolean isCancelled = false;
 
-    public InsertionSort(SortArray sortArray, int speed) {
-        this.sortArray = sortArray;
-        this.speed = speed;
-    }
-
     @Override
-    public void sort() {
+    public void sort(SortArray sortArray, int speed) {
 
         int[] data = sortArray.getData();
         int temp;

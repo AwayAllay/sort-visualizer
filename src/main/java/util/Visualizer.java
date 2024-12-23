@@ -36,8 +36,4 @@ public class Visualizer {
         frame.pack();
         frame.setVisible(true);
     }
-
-    public void sort(int speed){
-        sortArray.sort(speed);
-    }
 }
