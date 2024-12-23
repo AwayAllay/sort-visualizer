@@ -71,7 +71,6 @@ public class Painter {
     private void setUpSlider() {
         slider = new JSlider(JSlider.HORIZONTAL, 1, 100, 1);
         slider.setBounds(new Rectangle(900, bar.y + 4, 150, 20));
-        slider.setLocation(900, 10);
         slider.addChangeListener(e -> {
             int speed = slider.getValue();
             sortArray.setSpeed(speed);
@@ -86,18 +85,23 @@ public class Painter {
                 Point pressed = e.getPoint();
                 if (randomize.contains(pressed)) {
                     new Thread(sortArray::randomize).start();
-                } else if (sort.contains(pressed)) {
+                }
+                else if (sort.contains(pressed)) {
                     new Thread(sortArray::sort).start();
-                } else if (bubbleSort.contains(pressed)) {
+                }
+                else if (bubbleSort.contains(pressed)&& showMenu) {
                     sortArray.setAlgorithm(new BubbleSort());
                     showMenu = false;
-                } else if (insertionSort.contains(pressed)) {
+                }
+                else if (insertionSort.contains(pressed)&& showMenu) {
                     sortArray.setAlgorithm(new InsertionSort());
                     showMenu = false;
-                } else if (mergeSort.contains(pressed)) {
+                }
+                else if (mergeSort.contains(pressed)&& showMenu) {
                     sortArray.setAlgorithm(new MergeSort());
                     showMenu = false;
-                } else if (selectionSort.contains(pressed)) {
+                }
+                else if (selectionSort.contains(pressed) && showMenu) {
                     sortArray.setAlgorithm(new SelectionSort());
                     showMenu = false;
                 }
@@ -149,6 +153,8 @@ public class Painter {
         g2d.drawString(new InsertionSort().name(), insertionSort.x + 15, insertionSort.y + 35);
         g2d.drawString(new MergeSort().name(), mergeSort.x + 25, mergeSort.y + 35);
         g2d.drawString(new SelectionSort().name(), selectionSort.x + 15, selectionSort.y + 35);
+
+        slider.setBounds(new Rectangle(700, bar.y + 4, 150, 20));//FIXME
 
     }
 
