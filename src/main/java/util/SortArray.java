@@ -26,6 +26,7 @@ public class SortArray extends JPanel {
     private final Painter painter;
     private boolean isRandomizing = false;
     private int speed = 0;
+    private int dataSize = 100;
 
     public SortArray(int dataSize, Visualizer visualizer) {
         super.setPreferredSize(new Dimension(Visualizer.WINDOW_WIDTH, Visualizer.WINDOW_HEIGHT));
@@ -113,5 +114,12 @@ public class SortArray extends JPanel {
 
     public int getSpeed() {
         return speed;
+    }
+
+    public int getDataSize() {
+        return dataSize;
+    }
+    public void setDataSize(int size) {
+        this.dataSize = size;
     }
 }

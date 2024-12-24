@@ -40,7 +40,8 @@ public class Painter {
     private final Rectangle bar;
     private final int stepHeight;
     private final int barWidth;
-    private final JSlider slider;
+    private final JSlider speedSlider;
+    private final JSlider dataSlider;
     private boolean showMenu = false;
 
     public Painter(SortArray sortArray) {
@@ -55,8 +56,9 @@ public class Painter {
         randomize = new Rectangle(20 + sorter.width, bar.y + 4, bar.height - 8, bar.height - 8);
         sort = new Rectangle(70 + randomize.width, bar.y + 4, bar.height - 8, bar.height - 8);
 
-        slider = new JSlider(JSlider.HORIZONTAL, 0, 100, 1);
-        setUpSlider();
+        speedSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 1);
+        dataSlider = new JSlider(JSlider.HORIZONTAL, 0, 500, 2);
+        setUpSliders();
 
         bubbleSort = new Rectangle(10, sorter.y + 37, 150, 60);
         insertionSort = new Rectangle(10, bubbleSort.y + 60, 150, 60);
@@ -66,14 +68,31 @@ public class Painter {
 
     }
 
-    private void setUpSlider() {
-        slider.setBounds(new Rectangle(700,  bar.y + 4, 150, 20));
-        slider.addChangeListener(e -> {
-            int speed = 100 - slider.getValue();
+    private void setUpSliders() {
+        speedSlider.setBounds(new Rectangle(700,  bar.y + 4, 150, 20));
+        speedSlider.addChangeListener(e -> {
+            int speed = 100 - speedSlider.getValue();
             sortArray.setSpeed(speed);
         });
-        sortArray.add(slider);
-        sortArray.add(slider);
+        sortArray.add(speedSlider);
+        sortArray.add(speedSlider);
+
+        dataSlider.setBounds(new Rectangle(700, bar.y, 150, 20));
+        dataSlider.addChangeListener(e -> {
+            int size = dataSlider.getValue();
+            boolean b = false;
+            while ((Visualizer.WINDOW_WIDTH % size) != 0) {
+                if (size >= 3 && !b) {
+                    size--;
+                }
+                else b = true;
+                if (b && size < 500) {
+                    size++;
+                }
+            }
+            sortArray.setDataSize(size);
+        });
+        sortArray.add(dataSlider);
     }
 
     private void addListener() {
@@ -201,7 +220,8 @@ public class Painter {
             g2d.drawString("Algorithm: " + sortArray.getAlgorithm().name(), sort.x + sort.width + 10, sort.y + sort.height - 4);
         }
 
-        slider.setLocation(700,  bar.y + 4);
+        speedSlider.setLocation(700,  bar.y + 4);
+        dataSlider.setLocation(700,  bar.y + 25);
 
     }
 
