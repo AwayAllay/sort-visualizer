@@ -25,7 +25,7 @@ public class SortArray extends JPanel {
     private SortAlgorithm algorithm = null;
     private final Painter painter;
     private boolean isRandomizing = false;
-    private int speed = 1;
+    private int speed = 0;
 
     public SortArray(int dataSize, Visualizer visualizer) {
         super.setPreferredSize(new Dimension(Visualizer.WINDOW_WIDTH, Visualizer.WINDOW_HEIGHT));
