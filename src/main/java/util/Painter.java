@@ -44,7 +44,7 @@ public class Painter {
     private JSlider slider;
 
 
-    public Painter(SortArray sortArray) {
+    public Painter(SortArray sortArray) {6
         this.sortArray = sortArray;
         addListener();
 
@@ -152,7 +152,6 @@ public class Painter {
         g2d.drawString(new SelectionSort().name(), selectionSort.x + 15, selectionSort.y + 35);
 
         slider.setBounds(new Rectangle(700, bar.y + 4, 150, 20));//FIXME
-
     }
 
     private void paintGraph(boolean hasChanged, Graphics graphics) {
@@ -182,24 +181,16 @@ public class Painter {
         g2d.setColor(Color.GRAY);
         g2d.fill(bar);
 
-        if (getImage("sorter.png") != null) {
+        if (getImage("sorter.png") != null && getImage("randomize.png") != null && getImage("sort.png") != null) {
             g2d.drawImage(getImage("sorter.png"), sorter.x, sorter.y, sorter.width, sorter.height, null);
+            g2d.drawImage(getImage("randomize.png"), randomize.x, randomize.y, randomize.width, randomize.height, null);
+            g2d.drawImage(getImage("sort.png"), sort.x, sort.y, sort.width, sort.height, null);
         } else {
             g2d.setColor(Color.BLUE);
             g2d.fill(sorter);
-        }
-
-        if (getImage("randomize.png") != null) {
-            g2d.drawImage(getImage("randomize.png"), randomize.x, randomize.y, randomize.width, randomize.height, null);
-        } else {
             g2d.setColor(Color.GREEN);
             g2d.fill(randomize);
-        }
-
-        if (getImage("sort.png") != null) {
-            g2d.drawImage(getImage("sort.png"), sort.x, sort.y, sort.width, sort.height, null);
-        } else {
-            g2d.setColor(Color.GREEN);
+            g2d.setColor(Color.RED);
             g2d.fill(sort);
         }
 
