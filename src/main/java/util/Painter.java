@@ -40,11 +40,10 @@ public class Painter {
     private final Rectangle bar;
     private final int stepHeight;
     private final int barWidth;
+    private final JSlider slider;
     private boolean showMenu = false;
-    private JSlider slider;
 
-
-    public Painter(SortArray sortArray) {6
+    public Painter(SortArray sortArray) {
         this.sortArray = sortArray;
         addListener();
 
@@ -56,23 +55,25 @@ public class Painter {
         randomize = new Rectangle(20 + sorter.width, bar.y + 4, bar.height - 8, bar.height - 8);
         sort = new Rectangle(70 + randomize.width, bar.y + 4, bar.height - 8, bar.height - 8);
 
+        slider = new JSlider(JSlider.HORIZONTAL, 0, 100, 1);
         setUpSlider();
-        sortArray.add(slider);
 
         bubbleSort = new Rectangle(10, sorter.y + 37, 150, 60);
         insertionSort = new Rectangle(10, bubbleSort.y + 60, 150, 60);
         mergeSort = new Rectangle(10, insertionSort.y + 60, 150, 60);
         selectionSort = new Rectangle(10, mergeSort.y + 60, 150, 60);
+        new Thread(sortArray::repaint).start();
 
     }
 
     private void setUpSlider() {
-        slider = new JSlider(JSlider.HORIZONTAL, 1, 100, 1);
-        slider.setBounds(new Rectangle(700, bar.y + 4, 150, 20));
+        slider.setBounds(new Rectangle(700,  bar.y + 4, 150, 20));
         slider.addChangeListener(e -> {
-            int speed = slider.getValue();
+            int speed = 100 - slider.getValue();
             sortArray.setSpeed(speed);
         });
+        sortArray.add(slider);
+        sortArray.add(slider);
     }
 
     private void addListener() {
@@ -150,8 +151,6 @@ public class Painter {
         g2d.drawString(new InsertionSort().name(), insertionSort.x + 15, insertionSort.y + 35);
         g2d.drawString(new MergeSort().name(), mergeSort.x + 25, mergeSort.y + 35);
         g2d.drawString(new SelectionSort().name(), selectionSort.x + 15, selectionSort.y + 35);
-
-        slider.setBounds(new Rectangle(700, bar.y + 4, 150, 20));//FIXME
     }
 
     private void paintGraph(boolean hasChanged, Graphics graphics) {
@@ -201,6 +200,8 @@ public class Painter {
         } else {
             g2d.drawString("Algorithm: " + sortArray.getAlgorithm().name(), sort.x + sort.width + 10, sort.y + sort.height - 4);
         }
+
+        slider.setLocation(700,  bar.y + 4);
 
     }
 

@@ -15,6 +15,7 @@ public class Visualizer {
     }
 
     private void setupFrame() {
+
         JFrame frame = new JFrame("Sorting visualizer");
         frame.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
