@@ -20,15 +20,12 @@ import algorithms.SelectionSort;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.Hashtable;
 import java.util.Objects;
 
 public class Painter {
@@ -59,22 +56,22 @@ public class Painter {
         randomize = new Rectangle(20 + sorter.width, bar.y + 4, bar.height - 8, bar.height - 8);
         sort = new Rectangle(70 + randomize.width, bar.y + 4, bar.height - 8, bar.height - 8);
 
+        setUpSlider();
+        sortArray.add(slider);
+
         bubbleSort = new Rectangle(10, sorter.y + 37, 150, 60);
         insertionSort = new Rectangle(10, bubbleSort.y + 60, 150, 60);
         mergeSort = new Rectangle(10, insertionSort.y + 60, 150, 60);
         selectionSort = new Rectangle(10, mergeSort.y + 60, 150, 60);
 
-        setUpSlider();
-        sortArray.add(slider);
     }
 
     private void setUpSlider() {
         slider = new JSlider(JSlider.HORIZONTAL, 1, 100, 1);
-        slider.setBounds(new Rectangle(900, bar.y + 4, 150, 20));
+        slider.setBounds(new Rectangle(700, bar.y + 4, 150, 20));
         slider.addChangeListener(e -> {
             int speed = slider.getValue();
             sortArray.setSpeed(speed);
-            sortArray.repaint();
         });
     }
 

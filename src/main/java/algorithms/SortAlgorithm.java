@@ -15,8 +15,6 @@ package algorithms;
 
 import util.SortArray;
 
-import java.awt.image.BufferedImage;
-
 public interface SortAlgorithm {
     void sort(SortArray sortArray);
     void cancel();
