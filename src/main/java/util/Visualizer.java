@@ -8,8 +8,8 @@ public class Visualizer {
     public static final int WINDOW_HEIGHT = WINDOW_WIDTH * 9 / 16;
     private final SortArray sortArray;
 
-    public Visualizer(int dataSize){
-        sortArray = new SortArray(dataSize);
+    public Visualizer(){
+        sortArray = new SortArray();
         setupFrame();
         sortArray.repaint();
     }

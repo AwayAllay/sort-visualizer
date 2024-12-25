@@ -38,8 +38,8 @@ public class Painter {
     private final Rectangle selectionSort;
     private final Rectangle randomize;
     private final Rectangle bar;
-    private final int stepHeight;
-    private final int barWidth;
+    private int stepHeight;
+    private int barWidth;
     private final JSlider speedSlider;
     private final JSlider dataSlider;
     private boolean showMenu = false;
@@ -47,9 +47,6 @@ public class Painter {
     public Painter(SortArray sortArray) {
         this.sortArray = sortArray;
         addListener();
-
-        stepHeight = (Visualizer.WINDOW_HEIGHT - 50) / sortArray.getData().length;
-        barWidth = Visualizer.WINDOW_WIDTH / sortArray.getData().length;
 
         bar = new Rectangle(0, 0, Visualizer.WINDOW_WIDTH, 45);
         sorter = new Rectangle(10, bar.y + 4, bar.height - 8, bar.height - 8);
@@ -91,8 +88,13 @@ public class Painter {
                     size++;
                 }
             }
+            if (sortArray.getAlgorithm() != null) sortArray.getAlgorithm().cancel();
+            sortArray.setRandomizeIsCancelled(true);
             sortArray.setDataSize(size);
             sortArray.repaint();
+            sortArray.sleep(100);
+            sortArray.setRandomizeIsCancelled(false);
+            if (sortArray.getAlgorithm() != null) sortArray.getAlgorithm().reset();
         });
         sortArray.add(dataSlider);
     }
@@ -146,6 +148,8 @@ public class Painter {
         sortArray.setBackground(Color.BLACK);
 
         boolean hasChanged = false;
+        stepHeight = (Visualizer.WINDOW_HEIGHT - 50) / sortArray.getData().length;
+        barWidth = Visualizer.WINDOW_WIDTH / sortArray.getData().length;
 
         paintBar(graphics);
         paintGraph(hasChanged, graphics);

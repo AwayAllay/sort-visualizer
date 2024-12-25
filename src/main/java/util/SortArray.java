@@ -27,13 +27,18 @@ public class SortArray extends JPanel {
     private boolean isRandomizing = false;
     private int speed = 0;
     private int dataSize = 100;
+    private boolean randomizeIsCancelled = false;
 
-    public SortArray(int dataSize) {
+    public SortArray() {
         super.setPreferredSize(new Dimension(Visualizer.WINDOW_WIDTH, Visualizer.WINDOW_HEIGHT));
 
-        this.data = new int[dataSize];
-        this.lastModifiedData = data.clone();
+        setNewData();
         painter = new Painter(this);
+    }
+
+    private void setNewData() {
+        data = new int[dataSize];
+        lastModifiedData = data.clone();
 
         for (int i = 1; i < data.length + 1; i++) {
             data[i - 1] = i;
@@ -44,6 +49,11 @@ public class SortArray extends JPanel {
         isRandomizing = true;
         Random random = new Random();
 
+        if (randomizeIsCancelled){
+            isRandomizing = false;
+            return;
+        }
+
         if (algorithm != null) {
             algorithm.cancel();
             sleep(100);
@@ -52,6 +62,10 @@ public class SortArray extends JPanel {
         sleep(speed);
 
         for (int i = 0; i < data.length * 2; i++) {
+            if (randomizeIsCancelled){
+                isRandomizing = false;
+                return;
+            }
             int index1 = random.nextInt(data.length);
             int index2 = random.nextInt(data.length);
             swap(index1, index2);
@@ -121,5 +135,10 @@ public class SortArray extends JPanel {
     }
     public void setDataSize(int size) {
         this.dataSize = size;
+        setNewData();
+    }
+
+    public void setRandomizeIsCancelled(boolean randomizeIsCancelled) {
+        this.randomizeIsCancelled = randomizeIsCancelled;
     }
 }
