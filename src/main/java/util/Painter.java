@@ -56,8 +56,8 @@ public class Painter {
         randomize = new Rectangle(20 + sorter.width, bar.y + 4, bar.height - 8, bar.height - 8);
         sort = new Rectangle(70 + randomize.width, bar.y + 4, bar.height - 8, bar.height - 8);
 
-        speedSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 1);
-        dataSlider = new JSlider(JSlider.HORIZONTAL, 0, 500, 2);
+        speedSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 100);
+        dataSlider = new JSlider(JSlider.HORIZONTAL, 2, 500, 100);
         setUpSliders();
 
         bubbleSort = new Rectangle(10, sorter.y + 37, 150, 60);
@@ -73,12 +73,13 @@ public class Painter {
         speedSlider.addChangeListener(e -> {
             int speed = 100 - speedSlider.getValue();
             sortArray.setSpeed(speed);
+            sortArray.repaint();
         });
-        sortArray.add(speedSlider);
         sortArray.add(speedSlider);
 
         dataSlider.setBounds(new Rectangle(700, bar.y, 150, 20));
         dataSlider.addChangeListener(e -> {
+
             int size = dataSlider.getValue();
             boolean b = false;
             while ((Visualizer.WINDOW_WIDTH % size) != 0) {
@@ -91,6 +92,7 @@ public class Painter {
                 }
             }
             sortArray.setDataSize(size);
+            sortArray.repaint();
         });
         sortArray.add(dataSlider);
     }
@@ -220,6 +222,14 @@ public class Painter {
             g2d.drawString("Algorithm: " + sortArray.getAlgorithm().name(), sort.x + sort.width + 10, sort.y + sort.height - 4);
         }
 
+        g2d.setFont(new Font("Arial", Font.ITALIC, speedSlider.getHeight()));
+        if (sortArray.getSpeed() == 0) {
+            g2d.drawString("Speed: " + sortArray.getSpeed(), speedSlider.getX() + speedSlider.getWidth() + 5, speedSlider.getY() + speedSlider.getHeight() - 2);
+        }
+        else {
+            g2d.drawString("Speed: -" + sortArray.getSpeed(), speedSlider.getX() + speedSlider.getWidth() + 5, speedSlider.getY() + speedSlider.getHeight() - 2);
+        }
+        g2d.drawString("Size: " + sortArray.getDataSize(), dataSlider.getX() + dataSlider.getWidth() + 5, dataSlider.getY() + dataSlider.getHeight() - 2);
         speedSlider.setLocation(700,  bar.y + 4);
         dataSlider.setLocation(700,  bar.y + 25);
 

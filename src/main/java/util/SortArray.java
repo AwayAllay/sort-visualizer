@@ -28,7 +28,7 @@ public class SortArray extends JPanel {
     private int speed = 0;
     private int dataSize = 100;
 
-    public SortArray(int dataSize, Visualizer visualizer) {
+    public SortArray(int dataSize) {
         super.setPreferredSize(new Dimension(Visualizer.WINDOW_WIDTH, Visualizer.WINDOW_HEIGHT));
 
         this.data = new int[dataSize];

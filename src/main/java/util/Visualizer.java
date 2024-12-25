@@ -9,7 +9,7 @@ public class Visualizer {
     private final SortArray sortArray;
 
     public Visualizer(int dataSize){
-        sortArray = new SortArray(dataSize, this);
+        sortArray = new SortArray(dataSize);
         setupFrame();
         sortArray.repaint();
     }
