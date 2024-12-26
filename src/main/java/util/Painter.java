@@ -13,10 +13,7 @@
  */
 package util;
 
-import algorithms.BubbleSort;
-import algorithms.InsertionSort;
-import algorithms.MergeSort;
-import algorithms.SelectionSort;
+import algorithms.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -34,6 +31,7 @@ public class Painter {
     private final Rectangle sort;
     private final Rectangle bubbleSort;//TODO new sorts
     private final Rectangle insertionSort;
+    private final Rectangle quickSort;
     private final Rectangle mergeSort;
     private final Rectangle selectionSort;
     private final Rectangle randomize;
@@ -61,6 +59,7 @@ public class Painter {
         insertionSort = new Rectangle(10, bubbleSort.y + 60, 150, 60);
         mergeSort = new Rectangle(10, insertionSort.y + 60, 150, 60);
         selectionSort = new Rectangle(10, mergeSort.y + 60, 150, 60);
+        quickSort = new Rectangle(10 + bubbleSort.width, sorter.y + 37, 150, 60);
         new Thread(sortArray::repaint).start();
 
     }
@@ -126,6 +125,10 @@ public class Painter {
                     sortArray.setAlgorithm(new SelectionSort());
                     showMenu = false;
                 }
+                else if (quickSort.contains(pressed) && showMenu) {
+                    sortArray.setAlgorithm(new QuickSort());
+                    showMenu = false;
+                }
                 sortArray.repaint();
             }
         });
@@ -137,6 +140,7 @@ public class Painter {
                 else if (showMenu && insertionSort.contains(mousePos)) showMenu = true;
                 else if (showMenu && mergeSort.contains(mousePos)) showMenu = true;
                 else if (showMenu && selectionSort.contains(mousePos)) showMenu = true;
+                else if (showMenu && quickSort.contains(mousePos)) showMenu = true;
                 else showMenu = sorter.contains(mousePos);
                 sortArray.repaint();
             }
@@ -165,6 +169,7 @@ public class Painter {
             g2d.drawImage(getImage("background.png"), insertionSort.x, insertionSort.y, insertionSort.width, insertionSort.height, null);
             g2d.drawImage(getImage("background.png"), mergeSort.x, mergeSort.y, mergeSort.width, mergeSort.height, null);
             g2d.drawImage(getImage("background.png"), selectionSort.x, selectionSort.y, selectionSort.width, selectionSort.height, null);
+            g2d.drawImage(getImage("background.png"), quickSort.x, quickSort.y, quickSort.width, quickSort.height, null);
         } else {
             g2d.setColor(Color.BLUE);
             g2d.fill(bubbleSort);
@@ -176,6 +181,7 @@ public class Painter {
         g2d.drawString(new InsertionSort().name(), insertionSort.x + 15, insertionSort.y + 35);
         g2d.drawString(new MergeSort().name(), mergeSort.x + 25, mergeSort.y + 35);
         g2d.drawString(new SelectionSort().name(), selectionSort.x + 15, selectionSort.y + 35);
+        g2d.drawString(new QuickSort().name(), quickSort.x + 20, quickSort.y + 35);
     }
 
     private void paintGraph(boolean hasChanged, Graphics graphics) {
