@@ -23,18 +23,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.Objects;
+import java.util.*;
+import java.util.List;
 
 public class Painter {
     private final SortArray sortArray;
     private final Rectangle sorter;
     private final Rectangle sort;
-    private final Rectangle bubbleSort;//TODO new sorts
-    private final Rectangle insertionSort;
-    private final Rectangle quickSort;
-    private final Rectangle mergeSort;
-    private final Rectangle selectionSort;
-    private final Rectangle heapSort;
     private final Rectangle randomize;
     private final Rectangle bar;
     private int stepHeight;
@@ -42,10 +37,13 @@ public class Painter {
     private final JSlider speedSlider;
     private final JSlider dataSlider;
     private boolean showMenu = false;
+    private final List<SortAlgorithm> algorithms = new ArrayList<>();
+    private final Map<SortAlgorithm, Rectangle> fields = new HashMap<>();
 
     public Painter(SortArray sortArray) {
         this.sortArray = sortArray;
         addListener();
+        addAlgorithms();
 
         bar = new Rectangle(0, 0, Visualizer.WINDOW_WIDTH, 45);
         sorter = new Rectangle(10, bar.y + 4, bar.height - 8, bar.height - 8);
@@ -56,18 +54,40 @@ public class Painter {
         dataSlider = new JSlider(JSlider.HORIZONTAL, 2, 500, 100);
         setUpSliders();
 
-        bubbleSort = new Rectangle(10, sorter.y + 37, 150, 60);
-        insertionSort = new Rectangle(10, bubbleSort.y + 60, 150, 60);
-        mergeSort = new Rectangle(10, insertionSort.y + 60, 150, 60);
-        selectionSort = new Rectangle(10, mergeSort.y + 60, 150, 60);
-        quickSort = new Rectangle(10 + bubbleSort.width, sorter.y + 37, 150, 60);
-        heapSort = new Rectangle(10 + bubbleSort.width, quickSort.y + 60, 150, 60);
+        setFields();
         new Thread(sortArray::repaint).start();
 
     }
 
+    private void setFields() {
+
+        int width = 160;
+        int height = 60;
+
+        for (int i = 0; i < algorithms.size(); i++) {
+
+            int column = i / 4;
+            int row = i % 4;
+
+            int x = 10 + width * column;
+            int y = sorter.y + 37 + height * row;
+
+            fields.put(algorithms.get(i), new Rectangle(x, y, width, height));
+        }
+    }
+
+    private void addAlgorithms() {
+        //TODO ADD new algorithms here
+        algorithms.add(new BubbleSort());
+        algorithms.add(new InsertionSort());
+        algorithms.add(new MergeSort());
+        algorithms.add(new SelectionSort());
+        algorithms.add(new QuickSort());
+        algorithms.add(new HeapSort());
+    }
+
     private void setUpSliders() {
-        speedSlider.setBounds(new Rectangle(700,  bar.y + 4, 150, 20));
+        speedSlider.setBounds(new Rectangle(700, bar.y + 4, 150, 20));
         speedSlider.addChangeListener(e -> {
             int speed = 100 - speedSlider.getValue();
             sortArray.setSpeed(speed);
@@ -83,8 +103,7 @@ public class Painter {
             while ((Visualizer.WINDOW_WIDTH % size) != 0) {
                 if (size >= 3 && !b) {
                     size--;
-                }
-                else b = true;
+                } else b = true;
                 if (b && size < 500) {
                     size++;
                 }
@@ -111,29 +130,16 @@ public class Painter {
                 else if (sort.contains(pressed)) {
                     new Thread(sortArray::sort).start();
                 }
-                else if (bubbleSort.contains(pressed)&& showMenu) {
-                    sortArray.setAlgorithm(new BubbleSort());
-                    showMenu = false;
-                }
-                else if (insertionSort.contains(pressed)&& showMenu) {
-                    sortArray.setAlgorithm(new InsertionSort());
-                    showMenu = false;
-                }
-                else if (mergeSort.contains(pressed)&& showMenu) {
-                    sortArray.setAlgorithm(new MergeSort());
-                    showMenu = false;
-                }
-                else if (selectionSort.contains(pressed) && showMenu) {
-                    sortArray.setAlgorithm(new SelectionSort());
-                    showMenu = false;
-                }
-                else if (quickSort.contains(pressed) && showMenu) {
-                    sortArray.setAlgorithm(new QuickSort());
-                    showMenu = false;
-                }
-                else if (heapSort.contains(pressed) && showMenu) {
-                    sortArray.setAlgorithm(new HeapSort());
-                    showMenu = false;
+                else if (showMenu) {
+
+                    for (SortAlgorithm value : fields.keySet()) {
+
+                        if (fields.get(value).contains(pressed)) {
+                            sortArray.setAlgorithm(value);
+                            showMenu = false;
+                        }
+                    }
+
                 }
                 sortArray.repaint();
             }
@@ -142,16 +148,31 @@ public class Painter {
             @Override
             public void mouseMoved(MouseEvent e) {
                 Point mousePos = e.getPoint();
-                if (showMenu && bubbleSort.contains(mousePos)) showMenu = true;
-                else if (showMenu && insertionSort.contains(mousePos)) showMenu = true;
-                else if (showMenu && mergeSort.contains(mousePos)) showMenu = true;
-                else if (showMenu && selectionSort.contains(mousePos)) showMenu = true;
-                else if (showMenu && quickSort.contains(mousePos)) showMenu = true;
-                else if (showMenu && heapSort.contains(mousePos)) showMenu = true;
+
+                if (showMenu && containsHoverPoint(mousePos)) {
+
+                    for (SortAlgorithm value : fields.keySet()) {
+
+                        if (fields.get(value).contains(mousePos)) {
+                            sortArray.setAlgorithm(value);
+                            showMenu = true;
+                        }
+                    }
+                }
                 else showMenu = sorter.contains(mousePos);
                 sortArray.repaint();
             }
         });
+    }
+
+    private boolean containsHoverPoint(Point p){
+        for (SortAlgorithm value : fields.keySet()) {
+
+            if (fields.get(value).contains(p)) {
+               return true;
+            }
+        }
+        return false;
     }
 
     public void paint(Graphics graphics) {
@@ -171,26 +192,35 @@ public class Painter {
 
         Graphics2D g2d = (Graphics2D) graphics;
 
-        if (getImage("background.png") != null) {
-            g2d.drawImage(getImage("background.png"), bubbleSort.x, bubbleSort.y, bubbleSort.width, bubbleSort.height, null);
-            g2d.drawImage(getImage("background.png"), insertionSort.x, insertionSort.y, insertionSort.width, insertionSort.height, null);
-            g2d.drawImage(getImage("background.png"), mergeSort.x, mergeSort.y, mergeSort.width, mergeSort.height, null);
-            g2d.drawImage(getImage("background.png"), selectionSort.x, selectionSort.y, selectionSort.width, selectionSort.height, null);
-            g2d.drawImage(getImage("background.png"), quickSort.x, quickSort.y, quickSort.width, quickSort.height, null);
-            g2d.drawImage(getImage("background.png"), heapSort.x, heapSort.y, heapSort.width, heapSort.height, null);
-        } else {
-            g2d.setColor(Color.BLUE);
-            g2d.fill(bubbleSort);
-        }
+        algorithms.forEach(algorithm -> {
+
+            Rectangle rectangle = fields.get(algorithm);
+
+            if (getImage("background.png") != null) {
+                g2d.drawImage(getImage("background.png"), rectangle.x, rectangle.y, rectangle.width, rectangle.height, null);
+            }
+            else {
+                g2d.setColor(Color.ORANGE);
+                g2d.fillRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
+            }
+        });
 
         g2d.setColor(Color.WHITE);
         g2d.setFont(new Font("Arial", Font.BOLD, 20));
-        g2d.drawString(new BubbleSort().name(), bubbleSort.x + 20, bubbleSort.y + 35);
-        g2d.drawString(new InsertionSort().name(), insertionSort.x + 15, insertionSort.y + 35);
-        g2d.drawString(new MergeSort().name(), mergeSort.x + 25, mergeSort.y + 35);
-        g2d.drawString(new SelectionSort().name(), selectionSort.x + 15, selectionSort.y + 35);
-        g2d.drawString(new QuickSort().name(), quickSort.x + 25, quickSort.y + 35);
-        g2d.drawString(new HeapSort().name(), heapSort.x + 30, heapSort.y + 35);
+
+        algorithms.forEach(algorithm -> {
+
+            Rectangle rectangle = fields.get(algorithm);
+            String name = algorithm.name();
+            FontMetrics fontMetrics = g2d.getFontMetrics();
+            int width = fontMetrics.stringWidth(name);
+            int height = fontMetrics.getHeight();
+
+            int x = rectangle.x + (rectangle.width - width) / 2;
+            int y = rectangle.y + (rectangle.height - height);
+            g2d.drawString(name, x, y);
+
+        });
     }
 
     private void paintGraph(boolean hasChanged, Graphics graphics) {
@@ -219,7 +249,7 @@ public class Painter {
 
         g2d.setColor(Color.GRAY);
         g2d.fill(bar);
-
+        //Draw images
         if (getImage("sorter.png") != null && getImage("randomize.png") != null && getImage("sort.png") != null) {
             g2d.drawImage(getImage("sorter.png"), sorter.x, sorter.y, sorter.width, sorter.height, null);
             g2d.drawImage(getImage("randomize.png"), randomize.x, randomize.y, randomize.width, randomize.height, null);
@@ -227,30 +257,25 @@ public class Painter {
         } else {
             g2d.setColor(Color.BLUE);
             g2d.fill(sorter);
-            g2d.setColor(Color.GREEN);
             g2d.fill(randomize);
-            g2d.setColor(Color.RED);
             g2d.fill(sort);
         }
 
+        //Draw Algorithm
         g2d.setColor(Color.WHITE);
         g2d.setFont(new Font("Arial", Font.BOLD, sort.height));
-        if (sortArray.getAlgorithm() == null) {
-            g2d.drawString("Algorithm: (select algorithm)", sort.x + sort.width + 10, sort.y + sort.height - 4);
-        } else {
-            g2d.drawString("Algorithm: " + sortArray.getAlgorithm().name(), sort.x + sort.width + 10, sort.y + sort.height - 4);
-        }
+        if (sortArray.getAlgorithm() == null) g2d.drawString("Algorithm: (select algorithm)", sort.x + sort.width + 10, sort.y + sort.height - 4);
+        else g2d.drawString("Algorithm: " + sortArray.getAlgorithm().name(), sort.x + sort.width + 10, sort.y + sort.height - 4);
 
+        //Draw speed
         g2d.setFont(new Font("Arial", Font.ITALIC, speedSlider.getHeight()));
-        if (sortArray.getSpeed() == 0) {
-            g2d.drawString("Speed: " + sortArray.getSpeed(), speedSlider.getX() + speedSlider.getWidth() + 5, speedSlider.getY() + speedSlider.getHeight() - 2);
-        }
-        else {
-            g2d.drawString("Speed: -" + sortArray.getSpeed(), speedSlider.getX() + speedSlider.getWidth() + 5, speedSlider.getY() + speedSlider.getHeight() - 2);
-        }
+        if (sortArray.getSpeed() == 0) g2d.drawString("Speed: " + sortArray.getSpeed(), speedSlider.getX() + speedSlider.getWidth() + 5, speedSlider.getY() + speedSlider.getHeight() - 2);
+        else g2d.drawString("Speed: -" + sortArray.getSpeed(), speedSlider.getX() + speedSlider.getWidth() + 5, speedSlider.getY() + speedSlider.getHeight() - 2);
+
+        //Draw size
         g2d.drawString("Size: " + sortArray.getDataSize(), dataSlider.getX() + dataSlider.getWidth() + 5, dataSlider.getY() + dataSlider.getHeight() - 2);
-        speedSlider.setLocation(700,  bar.y + 4);
-        dataSlider.setLocation(700,  bar.y + 25);
+        speedSlider.setLocation(700, bar.y + 4);
+        dataSlider.setLocation(700, bar.y + 25);
 
     }
 
