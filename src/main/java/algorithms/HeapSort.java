@@ -15,46 +15,57 @@ package algorithms;
 
 import util.SortArray;
 
-public class QuickSort implements SortAlgorithm{
+public class HeapSort implements SortAlgorithm {
 
     private boolean isCancelled = false;
-    private SortArray sortArray = null;
 
     @Override
     public void sort(SortArray sortArray) {
-        this.sortArray = sortArray;
-        quickSort(0, sortArray.getData().length - 1);
+        heapSort(sortArray);
     }
 
-    private void quickSort(int l, int r){
+    private void heapSort(SortArray sortArray) {
 
-        int[] data = sortArray.getData();
-        int i, j, x;
-        i = l;
-        j = r;
-        x = data[(l + r) / 2];
-        do {
+        int length = sortArray.getData().length;
 
-            if (isCancelled) return;
-            while (data[i] < x) {
-                i++;
-            }
-            while (x < data[j]) {
-                j--;
-            }
-            if (i <= j) {
-                sortArray.swap(i, j);
-                sortArray.sleep(sortArray.getSpeed());
-                sortArray.repaint();
-                i++;
-                j--;
-            }
-            if (isCancelled) return;
+        for (int i = length / 2 - 1; i >= 0; i--) {
+            heapify(sortArray, length, i);
         }
-        while (i <= j);
-        if (l < j) quickSort(l, j);
-        if (i < r) quickSort(i, r);
+
+        for (int i = length - 1; i > 0; i--) {
+            if (isCancelled) return;
+            sortArray.swap(0, i);
+            sortArray.sleep(sortArray.getSpeed());
+            sortArray.repaint();
+            heapify(sortArray, i, 0);
+        }
     }
+
+    private void heapify(SortArray sortArray, int length, int i) {
+
+        int largest = i; //largest as root
+        int l = 2 * i + 1; // left index
+        int r = 2 * i + 2; //right index
+        int[] data = sortArray.getData();
+
+        if (l < length && data[l] > data[largest]){
+            largest = l;
+        }
+
+        if (r < length && data[r] > data[largest]){
+            largest = r;
+        }
+
+        if (largest != i){
+            if (isCancelled) return;
+            sortArray.swap(i, largest);
+            sortArray.sleep(sortArray.getSpeed());
+            sortArray.repaint();
+            heapify(sortArray, length, largest);
+        }
+    }
+
+
     @Override
     public void cancel() {
         isCancelled = true;
@@ -67,6 +78,6 @@ public class QuickSort implements SortAlgorithm{
 
     @Override
     public String name() {
-        return "Quicksort";
+        return "Heapsort";
     }
 }
