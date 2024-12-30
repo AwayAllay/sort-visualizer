@@ -84,6 +84,7 @@ public class Painter {
         algorithms.add(new SelectionSort());
         algorithms.add(new QuickSort());
         algorithms.add(new HeapSort());
+        algorithms.add(new CountingSort());
     }
 
     private void setUpSliders() {
