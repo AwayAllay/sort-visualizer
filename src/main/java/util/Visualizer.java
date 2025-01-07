@@ -32,6 +32,7 @@ public class Visualizer {
         frame.add(sortArray);
         frame.pack();
         frame.setLayout(null);
+        frame.setResizable(false);
         frame.setVisible(true);
 
         frame.addComponentListener(new ComponentListener() {
