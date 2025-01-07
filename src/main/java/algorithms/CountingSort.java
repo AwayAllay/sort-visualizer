@@ -21,10 +21,10 @@ public class CountingSort implements SortAlgorithm{ //TODO fix me
     @Override
     public void sort(SortArray sortArray) {
 
-        int length = sortArray.getData().length;
         int[] data = sortArray.getData();
-        int max = 0;
+        int length = data.length;
 
+        int max = 0;
         for (int i = 0; i < length; i++) {
             max = Math.max(max, data[i]);
         }
@@ -34,22 +34,24 @@ public class CountingSort implements SortAlgorithm{ //TODO fix me
         for (int i = 0; i < length; i++) {
             countArray[data[i]]++;
         }
-        for (int i = 1; i < max; i++) {
+        for (int i = 1; i <= max; i++) {
             countArray[i] += countArray[i - 1];
         }
 
-        int[] output = new int[length];
-
-        for (int i = length - 1; i >= 0; i--){
-
+        int[] temp = data.clone();
+        for (int i = length - 1; i >= 0; i--) {
             if (isCancelled) return;
-            output[countArray[data[i]] - 1] = data[i];
-            countArray[data[i]]--;
+
+            int value = temp[i];
+            int position = countArray[value] - 1;
+            data[position] = value;
+            countArray[value]--;
 
             sortArray.setData(data);
             sortArray.sleep(sortArray.getSpeed());
             sortArray.repaint();
         }
+
     }
 
     @Override

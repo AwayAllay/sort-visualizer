@@ -121,7 +121,7 @@ public class Painter {
     }
 
     private void addListener() {
-        sortArray.addMouseListener(new MouseAdapter() {//TODO new sorts
+        sortArray.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 Point pressed = e.getPoint();
@@ -145,7 +145,7 @@ public class Painter {
                 sortArray.repaint();
             }
         });
-        sortArray.addMouseMotionListener(new MouseMotionAdapter() {//TODO new sorts
+        sortArray.addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseMoved(MouseEvent e) {
                 Point mousePos = e.getPoint();
@@ -189,7 +189,7 @@ public class Painter {
         if (showMenu) paintMenu(graphics);
     }
 
-    private void paintMenu(Graphics graphics) {//TODO new sorts
+    private void paintMenu(Graphics graphics) {
 
         Graphics2D g2d = (Graphics2D) graphics;
 
