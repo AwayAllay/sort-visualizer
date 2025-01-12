@@ -18,6 +18,7 @@ import util.SortArray;
 public class HeapSort implements SortAlgorithm {
 
     private boolean isCancelled = false;
+    private int swaps = 0;
 
     @Override
     public void sort(SortArray sortArray) {
@@ -59,6 +60,7 @@ public class HeapSort implements SortAlgorithm {
         if (largest != i){
             if (isCancelled) return;
             sortArray.swap(i, largest);
+            swaps++;
             sortArray.sleep(sortArray.getSpeed());
             sortArray.repaint();
             heapify(sortArray, length, largest);
@@ -74,10 +76,16 @@ public class HeapSort implements SortAlgorithm {
     @Override
     public void reset() {
         isCancelled = false;
+        swaps = 0;
     }
 
     @Override
     public String name() {
         return "Heapsort";
+    }
+
+    @Override
+    public int getSwaps() {
+        return swaps;
     }
 }

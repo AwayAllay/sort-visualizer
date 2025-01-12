@@ -21,6 +21,7 @@ import util.SortArray;
  * uses a lot of memory, creating all the "subarrays" (o(n)).*/
 public class MergeSort implements SortAlgorithm{
     private boolean isCancelled = false;
+    private int swaps = 0;
 
     @Override
     public void sort(SortArray sortArray) {
@@ -34,12 +35,17 @@ public class MergeSort implements SortAlgorithm{
     @Override
     public void reset() {
         isCancelled = false;
+        swaps = 0;
     }
     @Override
     public String name() {
         return "Mergesort";
     }
 
+    @Override
+    public int getSwaps() {
+        return swaps;
+    }
 
 
     private void mergeSort(int[] data, int start, int end, SortArray sortArray){
@@ -53,6 +59,7 @@ public class MergeSort implements SortAlgorithm{
 
         merge(data, start, mid, end); //merge the two arrays
         sortArray.setData(data); //paints the changes
+        swaps++;
         sortArray.sleep(sortArray.getSpeed());
         sortArray.repaint();
     }

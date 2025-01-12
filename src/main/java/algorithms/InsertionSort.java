@@ -15,16 +15,12 @@ package algorithms;
 
 import util.SortArray;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.util.Objects;
-
 /**Insertionsort is really similar to Selectionsort with the difference that Insertionsort starts left and looks for
  * the next right value and places it in the correct order in the left side. THis makes it, again, good for smaller arrays,
  * but it gets very inefficient for larger ones (o(n²) worst-/ o(n) best- case).*/
 public class InsertionSort implements SortAlgorithm{
     private boolean isCancelled = false;
+    private int swaps = 0;
 
     @Override
     public void sort(SortArray sortArray) {
@@ -43,6 +39,7 @@ public class InsertionSort implements SortAlgorithm{
                 if (isCancelled) return;
                 data[j] = data[j - 1];
                 sortArray.swap(j, j - 1);
+                swaps++;
                 sortArray.sleep(sortArray.getSpeed());
                 sortArray.repaint();
                 j--;
@@ -59,10 +56,16 @@ public class InsertionSort implements SortAlgorithm{
     @Override
     public void reset() {
         isCancelled = false;
+        swaps = 0;
     }
     @Override
     public String name() {
         return "Insertionsort";
+    }
+
+    @Override
+    public int getSwaps() {
+        return swaps;
     }
 
 

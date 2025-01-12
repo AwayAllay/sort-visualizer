@@ -19,6 +19,7 @@ public class QuickSort implements SortAlgorithm{
 
     private boolean isCancelled = false;
     private SortArray sortArray = null;
+    private int swaps = 0;
 
     @Override
     public void sort(SortArray sortArray) {
@@ -44,6 +45,7 @@ public class QuickSort implements SortAlgorithm{
             }
             if (i <= j) {
                 sortArray.swap(i, j);
+                swaps++;
                 sortArray.sleep(sortArray.getSpeed());
                 sortArray.repaint();
                 i++;
@@ -63,10 +65,16 @@ public class QuickSort implements SortAlgorithm{
     @Override
     public void reset() {
         isCancelled = false;
+        swaps = 0;
     }
 
     @Override
     public String name() {
         return "Quicksort";
+    }
+
+    @Override
+    public int getSwaps() {
+        return swaps;
     }
 }

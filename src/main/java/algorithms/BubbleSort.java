@@ -15,16 +15,12 @@ package algorithms;
 
 import util.SortArray;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.util.Objects;
-
 /**Bubblesort is a pretty simple algorithm to sort data. It compares one value with the next one swaps the values if the next one is larger.
  * It is a pretty slow algorithm (average; o(n²)) but is nice to look at and uses very little memory(o(1)).*/
 
 public class BubbleSort implements SortAlgorithm{
     private boolean isCancelled = false;
+    private int swaps = 0;
 
     @Override
     public void sort(SortArray sortArray){
@@ -39,6 +35,7 @@ public class BubbleSort implements SortAlgorithm{
 
                 if (data[j] > data[j + 1]) {
                     sortArray.swap(j, j + 1);
+                    swaps++;
                     sortArray.sleep(sortArray.getSpeed());
                     sortArray.repaint();
                 }
@@ -62,6 +59,11 @@ public class BubbleSort implements SortAlgorithm{
     @Override
     public String name() {
         return "Bubblesort";
+    }
+
+    @Override
+    public int getSwaps() {
+        return swaps;
     }
 
 }

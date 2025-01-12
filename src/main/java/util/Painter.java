@@ -278,6 +278,12 @@ public class Painter {
         speedSlider.setLocation(700, bar.y + 4);
         dataSlider.setLocation(700, bar.y + 25);
 
+        if (sortArray.getAlgorithm() != null) {
+            g2d.drawString("Swaps: " + sortArray.getAlgorithm().getSwaps(), sorter.x, sorter.y - 60);
+        }
+        else {
+            g2d.drawString("Swaps: " + 0, sorter.x, sorter.y + 60);
+        }
     }
 
     private BufferedImage getImage(String picture) {

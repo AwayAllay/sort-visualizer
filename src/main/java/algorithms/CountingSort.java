@@ -18,6 +18,7 @@ import util.SortArray;
 public class CountingSort implements SortAlgorithm{ //TODO fix me
 
     private boolean isCancelled = false;
+    private int swaps = 0;
     @Override
     public void sort(SortArray sortArray) {
 
@@ -46,6 +47,7 @@ public class CountingSort implements SortAlgorithm{ //TODO fix me
             int position = countArray[value] - 1;
             data[position] = value;
             countArray[value]--;
+            swaps++;
 
             sortArray.setData(data);
             sortArray.sleep(sortArray.getSpeed());
@@ -62,10 +64,16 @@ public class CountingSort implements SortAlgorithm{ //TODO fix me
     @Override
     public void reset() {
         isCancelled = false;
+        swaps = 0;
     }
 
     @Override
     public String name() {
         return "Countingsort";
+    }
+
+    @Override
+    public int getSwaps() {
+        return swaps;
     }
 }

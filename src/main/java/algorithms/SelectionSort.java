@@ -15,15 +15,11 @@ package algorithms;
 
 import util.SortArray;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.util.Objects;
-
 /**Selection sort is a sort algorithm that finds the min value in an array and swaps it to its correct place.
  * o(n²) in worst case, o(n) in best case. But because it goes through the array several times, this algorithm is pretty inefficient. */
 public class SelectionSort implements SortAlgorithm{
     private boolean isCancelled = false;
+    private int swaps = 0;
 
     @Override
     public void sort(SortArray sortArray) {
@@ -37,6 +33,7 @@ public class SelectionSort implements SortAlgorithm{
 
                 if (data[i] < data[j]){
                     sortArray.swap(i, j);
+                    swaps++;
                     sortArray.repaint();
                     sortArray.sleep(sortArray.getSpeed());
                 }
@@ -51,10 +48,16 @@ public class SelectionSort implements SortAlgorithm{
     @Override
     public void reset() {
         isCancelled = false;
+        swaps = 0;
     }
     @Override
     public String name() {
         return "Selectionsort";
+    }
+
+    @Override
+    public int getSwaps() {
+        return swaps;
     }
 
 }

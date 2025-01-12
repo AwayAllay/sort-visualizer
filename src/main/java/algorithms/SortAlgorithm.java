@@ -20,4 +20,5 @@ public interface SortAlgorithm {
     void cancel();
     void reset();
     String name();
+    int getSwaps();
 }
