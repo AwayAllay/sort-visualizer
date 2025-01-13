@@ -15,7 +15,7 @@ package algorithms;
 
 import util.SortArray;
 
-public class QuickSort implements SortAlgorithm{
+public class QuickSort implements SortAlgorithmInterface {
 
     private boolean isCancelled = false;
     private SortArray sortArray = null;

@@ -15,7 +15,7 @@ package algorithms;
 
 import util.SortArray;
 
-public class HeapSort implements SortAlgorithm {
+public class HeapSort implements SortAlgorithmInterface {
 
     private boolean isCancelled = false;
     private int swaps = 0;

@@ -15,7 +15,7 @@ package algorithms;
 
 import util.SortArray;
 
-public interface SortAlgorithm {
+public interface SortAlgorithmInterface {
     void sort(SortArray sortArray);
     void cancel();
     void reset();

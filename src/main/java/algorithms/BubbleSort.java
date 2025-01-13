@@ -18,7 +18,7 @@ import util.SortArray;
 /**Bubblesort is a pretty simple algorithm to sort data. It compares one value with the next one swaps the values if the next one is larger.
  * It is a pretty slow algorithm (average; o(n²)) but is nice to look at and uses very little memory(o(1)).*/
 
-public class BubbleSort implements SortAlgorithm{
+public class BubbleSort implements SortAlgorithmInterface {
     private boolean isCancelled = false;
     private int swaps = 0;
 
@@ -54,6 +54,7 @@ public class BubbleSort implements SortAlgorithm{
     @Override
     public void reset() {
         isCancelled = false;
+        swaps = 0;
     }
 
     @Override

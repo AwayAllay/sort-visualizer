@@ -15,7 +15,7 @@ package algorithms;
 
 import util.SortArray;
 
-public class CountingSort implements SortAlgorithm{ //TODO fix me
+public class CountingSort implements SortAlgorithmInterface { //TODO fix me
 
     private boolean isCancelled = false;
     private int swaps = 0;

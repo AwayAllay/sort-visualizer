@@ -19,7 +19,7 @@ import util.SortArray;
  * Mergesort is a popular sorting algorithm ti sort data. This works by splitting the original data[] in smaller "subarrays".
  * This way the subarrays can be compared and merged in the correct order. A fast algorithm to use but (always o(nlog(n))) as its downside it
  * uses a lot of memory, creating all the "subarrays" (o(n)).*/
-public class MergeSort implements SortAlgorithm{
+public class MergeSort implements SortAlgorithmInterface {
     private boolean isCancelled = false;
     private int swaps = 0;
 
