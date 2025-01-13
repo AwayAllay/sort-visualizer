@@ -19,34 +19,12 @@ import util.SortArray;
  * Mergesort is a popular sorting algorithm ti sort data. This works by splitting the original data[] in smaller "subarrays".
  * This way the subarrays can be compared and merged in the correct order. A fast algorithm to use but (always o(nlog(n))) as its downside it
  * uses a lot of memory, creating all the "subarrays" (o(n)).*/
-public class MergeSort implements SortAlgorithmInterface {
-    private boolean isCancelled = false;
-    private int swaps = 0;
+public class MergeSort extends SortAlgorithm {
 
     @Override
     public void sort(SortArray sortArray) {
         mergeSort(sortArray.getData(), 0, sortArray.getData().length - 1, sortArray);
     }
-
-    @Override
-    public void cancel() {
-        isCancelled = true;
-    }
-    @Override
-    public void reset() {
-        isCancelled = false;
-        swaps = 0;
-    }
-    @Override
-    public String name() {
-        return "Mergesort";
-    }
-
-    @Override
-    public int getSwaps() {
-        return swaps;
-    }
-
 
     private void mergeSort(int[] data, int start, int end, SortArray sortArray){
 
@@ -94,5 +72,10 @@ public class MergeSort implements SortAlgorithmInterface {
             if (isCancelled) return;
             data[k++] = r[j++];
         }
+    }
+
+    @Override
+    public String name() {
+        return "Mergesort";
     }
 }

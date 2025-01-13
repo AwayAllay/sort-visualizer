@@ -37,8 +37,8 @@ public class Painter {
     private final JSlider speedSlider;
     private final JSlider dataSlider;
     private boolean showMenu = false;
-    private final List<SortAlgorithmInterface> algorithms = new ArrayList<>();
-    private final Map<SortAlgorithmInterface, Rectangle> fields = new HashMap<>();
+    private final List<SortAlgorithm> algorithms = new ArrayList<>();
+    private final Map<SortAlgorithm, Rectangle> fields = new HashMap<>();
 
     public Painter(SortArray sortArray) {
         this.sortArray = sortArray;
@@ -133,7 +133,7 @@ public class Painter {
                 }
                 else if (showMenu) {
 
-                    for (SortAlgorithmInterface value : fields.keySet()) {
+                    for (SortAlgorithm value : fields.keySet()) {
 
                         if (fields.get(value).contains(pressed)) {
                             sortArray.setAlgorithm(value);
@@ -152,7 +152,7 @@ public class Painter {
 
                 if (showMenu && containsHoverPoint(mousePos)) {
 
-                    for (SortAlgorithmInterface value : fields.keySet()) {
+                    for (SortAlgorithm value : fields.keySet()) {
 
                         if (fields.get(value).contains(mousePos)) {
                             sortArray.setAlgorithm(value);
@@ -167,7 +167,7 @@ public class Painter {
     }
 
     private boolean containsHoverPoint(Point p){
-        for (SortAlgorithmInterface value : fields.keySet()) {
+        for (SortAlgorithm value : fields.keySet()) {
 
             if (fields.get(value).contains(p)) {
                return true;

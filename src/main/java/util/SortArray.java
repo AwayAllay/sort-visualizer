@@ -13,7 +13,7 @@
  */
 package util;
 
-import algorithms.SortAlgorithmInterface;
+import algorithms.SortAlgorithm;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,7 +22,7 @@ import java.util.Random;
 public class SortArray extends JPanel {
     private int[] data;
     private int[] lastModifiedData;
-    private SortAlgorithmInterface algorithm = null;
+    private SortAlgorithm algorithm = null;
     private final Painter painter;
     private boolean isRandomizing = false;
     private int speed = 0;
@@ -117,11 +117,11 @@ public class SortArray extends JPanel {
         this.data = data;
     }
 
-    public void setAlgorithm(SortAlgorithmInterface algorithm) {
+    public void setAlgorithm(SortAlgorithm algorithm) {
         this.algorithm = algorithm;
     }
 
-    public SortAlgorithmInterface getAlgorithm() {
+    public SortAlgorithm getAlgorithm() {
         return algorithm;
     }
 

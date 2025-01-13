@@ -15,10 +15,25 @@ package algorithms;
 
 import util.SortArray;
 
-public interface SortAlgorithmInterface {
-    void sort(SortArray sortArray);
-    void cancel();
-    void reset();
-    String name();
-    int getSwaps();
+public abstract class SortAlgorithm {
+
+    protected boolean isCancelled = false;
+    protected int swaps = 0;
+
+    public abstract void sort(SortArray sortArray);
+    public abstract String name();
+
+
+    public void cancel(){
+        isCancelled = true;
+    }
+
+    public void reset(){
+        swaps = 0;
+        isCancelled = false;
+    }
+
+    public int getSwaps(){
+        return swaps;
+    }
 }

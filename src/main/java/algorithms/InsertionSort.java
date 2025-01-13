@@ -18,9 +18,7 @@ import util.SortArray;
 /**Insertionsort is really similar to Selectionsort with the difference that Insertionsort starts left and looks for
  * the next right value and places it in the correct order in the left side. THis makes it, again, good for smaller arrays,
  * but it gets very inefficient for larger ones (o(n²) worst-/ o(n) best- case).*/
-public class InsertionSort implements SortAlgorithmInterface {
-    private boolean isCancelled = false;
-    private int swaps = 0;
+public class InsertionSort extends SortAlgorithm {
 
     @Override
     public void sort(SortArray sortArray) {
@@ -50,23 +48,7 @@ public class InsertionSort implements SortAlgorithmInterface {
     }
 
     @Override
-    public void cancel() {
-        isCancelled = true;
-    }
-    @Override
-    public void reset() {
-        isCancelled = false;
-        swaps = 0;
-    }
-    @Override
     public String name() {
         return "Insertionsort";
     }
-
-    @Override
-    public int getSwaps() {
-        return swaps;
-    }
-
-
 }

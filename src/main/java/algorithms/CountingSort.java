@@ -15,10 +15,8 @@ package algorithms;
 
 import util.SortArray;
 
-public class CountingSort implements SortAlgorithmInterface { //TODO fix me
+public class CountingSort extends SortAlgorithm {
 
-    private boolean isCancelled = false;
-    private int swaps = 0;
     @Override
     public void sort(SortArray sortArray) {
 
@@ -57,23 +55,7 @@ public class CountingSort implements SortAlgorithmInterface { //TODO fix me
     }
 
     @Override
-    public void cancel() {
-        isCancelled = true;
-    }
-
-    @Override
-    public void reset() {
-        isCancelled = false;
-        swaps = 0;
-    }
-
-    @Override
     public String name() {
         return "Countingsort";
-    }
-
-    @Override
-    public int getSwaps() {
-        return swaps;
     }
 }

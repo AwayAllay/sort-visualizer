@@ -15,11 +15,8 @@ package algorithms;
 
 import util.SortArray;
 
-public class QuickSort implements SortAlgorithmInterface {
-
-    private boolean isCancelled = false;
+public class QuickSort extends SortAlgorithm {
     private SortArray sortArray = null;
-    private int swaps = 0;
 
     @Override
     public void sort(SortArray sortArray) {
@@ -57,24 +54,9 @@ public class QuickSort implements SortAlgorithmInterface {
         if (l < j) quickSort(l, j);
         if (i < r) quickSort(i, r);
     }
-    @Override
-    public void cancel() {
-        isCancelled = true;
-    }
-
-    @Override
-    public void reset() {
-        isCancelled = false;
-        swaps = 0;
-    }
 
     @Override
     public String name() {
         return "Quicksort";
-    }
-
-    @Override
-    public int getSwaps() {
-        return swaps;
     }
 }

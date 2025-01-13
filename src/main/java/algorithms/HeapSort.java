@@ -15,10 +15,7 @@ package algorithms;
 
 import util.SortArray;
 
-public class HeapSort implements SortAlgorithmInterface {
-
-    private boolean isCancelled = false;
-    private int swaps = 0;
+public class HeapSort extends SortAlgorithm {
 
     @Override
     public void sort(SortArray sortArray) {
@@ -67,25 +64,8 @@ public class HeapSort implements SortAlgorithmInterface {
         }
     }
 
-
-    @Override
-    public void cancel() {
-        isCancelled = true;
-    }
-
-    @Override
-    public void reset() {
-        isCancelled = false;
-        swaps = 0;
-    }
-
     @Override
     public String name() {
         return "Heapsort";
-    }
-
-    @Override
-    public int getSwaps() {
-        return swaps;
     }
 }
