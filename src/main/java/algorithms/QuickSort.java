@@ -42,7 +42,7 @@ public class QuickSort extends SortAlgorithm {
             }
             if (i <= j) {
                 sortArray.swap(i, j);
-                swaps++;
+                changes++;
                 sortArray.sleep(sortArray.getSpeed());
                 sortArray.repaint();
                 i++;

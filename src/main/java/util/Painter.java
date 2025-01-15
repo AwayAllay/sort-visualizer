@@ -85,6 +85,7 @@ public class Painter {
         algorithms.add(new QuickSort());
         algorithms.add(new HeapSort());
         algorithms.add(new CountingSort());
+        algorithms.add(new RadixSort());
     }
 
     private void setUpSliders() {
@@ -279,7 +280,7 @@ public class Painter {
         dataSlider.setLocation(700, bar.y + 25);
 
         if (sortArray.getAlgorithm() != null) {
-            g2d.drawString("Swaps: " + sortArray.getAlgorithm().getSwaps(), sorter.x, sorter.y + 60);
+            g2d.drawString("Swaps: " + sortArray.getAlgorithm().getChanges(), sorter.x, sorter.y + 60);
         }
         else {
             g2d.drawString("Swaps: " + 0, sorter.x, sorter.y + 60);

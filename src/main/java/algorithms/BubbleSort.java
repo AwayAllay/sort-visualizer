@@ -33,7 +33,7 @@ public class BubbleSort extends SortAlgorithm {
 
                 if (data[j] > data[j + 1]) {
                     sortArray.swap(j, j + 1);
-                    swaps++;
+                    changes++;
                     sortArray.sleep(sortArray.getSpeed());
                     sortArray.repaint();
                 }

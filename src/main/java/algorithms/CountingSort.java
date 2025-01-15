@@ -45,7 +45,7 @@ public class CountingSort extends SortAlgorithm {
             int position = countArray[value] - 1;
             data[position] = value;
             countArray[value]--;
-            swaps++;
+            changes++;
 
             sortArray.setData(data);
             sortArray.sleep(sortArray.getSpeed());

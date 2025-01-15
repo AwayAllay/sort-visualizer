@@ -37,7 +37,7 @@ public class MergeSort extends SortAlgorithm {
 
         merge(data, start, mid, end); //merge the two arrays
         sortArray.setData(data); //paints the changes
-        swaps++;
+        changes++;
         sortArray.sleep(sortArray.getSpeed());
         sortArray.repaint();
     }

@@ -15,57 +15,56 @@ package algorithms;
 
 import util.SortArray;
 
-public class HeapSort extends SortAlgorithm {
+import java.util.Arrays;
 
+public class RadixSort extends SortAlgorithm{
     @Override
     public void sort(SortArray sortArray) {
-        heapSort(sortArray);
-    }
 
-    private void heapSort(SortArray sortArray) {
-
-        int length = sortArray.getData().length;
-
-        for (int i = length / 2 - 1; i >= 0; i--) {
-            heapify(sortArray, length, i);
-        }
-
-        for (int i = length - 1; i > 0; i--) {
-            if (isCancelled) return;
-            sortArray.swap(0, i);
-            sortArray.sleep(sortArray.getSpeed());
-            sortArray.repaint();
-            heapify(sortArray, i, 0);
-        }
-    }
-
-    private void heapify(SortArray sortArray, int length, int i) {
-
-        int largest = i; //largest as root
-        int l = 2 * i + 1; // left index
-        int r = 2 * i + 2; //right index
         int[] data = sortArray.getData();
+        int max = getMaxValue(data);
 
-        if (l < length && data[l] > data[largest]){
-            largest = l;
-        }
-
-        if (r < length && data[r] > data[largest]){
-            largest = r;
-        }
-
-        if (largest != i){
+        for (int exp = 1; max / exp > 0; exp *= 10) {
             if (isCancelled) return;
-            sortArray.swap(i, largest);
-            changes++;
-            sortArray.sleep(sortArray.getSpeed());
-            sortArray.repaint();
-            heapify(sortArray, length, largest);
+            countingSort(sortArray, exp, data.length);
         }
     }
 
+    private void countingSort(SortArray sortArray, int exp, int n) {
+        int output[] = new int[n];
+        int i;
+        int count[] = new int[10];
+        int[] data = sortArray.getData();
+        Arrays.fill(count, 0);
+
+
+        for (i = 0; i < n; i++) count[(data[i] / exp) % 10]++;
+
+        for (i = 1; i < 10; i++) count[i] += count[i - 1];
+
+        for (i = n - 1; i >= 0; i--) {
+            output[count[(data[i] / exp) % 10] - 1] = data[i];
+            count[(data[i] / exp) % 10]--;
+        }
+
+        for (i = 0; i < n; i++) {
+            data[i] = output[i];
+            changes++;
+            sortArray.setData(data);
+            sortArray.sleep(sortArray.getSpeed());
+            sortArray.repaint();
+        }
+    }
+
+    private int getMaxValue(int[] data){
+        int max = data[0];
+        for (int i = 0; i < data.length; i++) {
+            if (data[i] > max) max = data[i];
+        }
+        return max;
+    }
     @Override
     public String name() {
-        return "Heapsort";
+        return "Radixsort";
     }
 }

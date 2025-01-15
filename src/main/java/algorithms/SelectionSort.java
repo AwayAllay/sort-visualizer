@@ -31,7 +31,7 @@ public class SelectionSort extends SortAlgorithm {
 
                 if (data[i] < data[j]){
                     sortArray.swap(i, j);
-                    swaps++;
+                    changes++;
                     sortArray.repaint();
                     sortArray.sleep(sortArray.getSpeed());
                 }
