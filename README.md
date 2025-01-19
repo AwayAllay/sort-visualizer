@@ -16,9 +16,9 @@ In the **future**, **more algorithms** are to come.
 And all this nicely visualized!
 
 ## Explanation
-- ![Choose the algorithm here](https://github.com/AwayAllay/sort-visualizer/main/resources/images/sorter.png)
-- ![Randomize the list here](https://github.com/AwayAllay/sort-visualizer/main/resources/images/randomize.png)
-- ![Start sorting here](https://github.com/AwayAllay/sort-visualizer/main/resources/images/sort.png)
+- ![Choose the algorithm here](resources/images/sorter.png)
+- ![Randomize the list here](resources/images/randomize.png)
+- ![Start sorting here](resources/images/sort.png)
 - Adjust the speed of the process or the size of the list with the corresponding slider in the program.
 
 ## HELP
