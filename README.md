@@ -16,8 +16,8 @@ In the **future**, **more algorithms** are to come.
 And all this nicely visualized!
 
 ## Explanation
-- ![Choose the algorithm here](tree/main/src/main/resources/images/sorter.png)
-- ![Randomize the list here](main/src/main/resources/images/randomize.png)
+- ![Choose the algorithm here](src/main/resources/images/sorter.png)
+- ![Randomize the list here](src/main/resources/images/randomize.png)
 - ![Start sorting here](src/main/resources/images/sort.png)
 - Adjust the speed of the process or the size of the list with the corresponding slider in the program.
 
