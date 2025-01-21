@@ -9,16 +9,16 @@ to learn how sorting works!
 In the **future**, **more algorithms** are to come.
 
 ## Features
-- ⏳ **Speed:** Adjust the speed of the sorting process.
-- 📜 **Size:** Adjust the size of the list sorted.
-- ⚙️ **Algorithms:** Choose from various algorithms.
+- **Speed:** Adjust the speed of the sorting process.
+- **Size:** Adjust the size of the list sorted.  
+- **Algorithms:** Choose from various algorithms.
 
 And all this nicely visualized!
 
 ## Explanation
-- ![Choose the algorithm here](src/main/resources/images/sorter.png)
-- ![Randomize the list here](src/main/resources/images/randomize.png)
-- ![Start sorting here](src/main/resources/images/sort.png)
+- ![Choose the algorithm here](src/main/resources/images/sorter.png) Choose your algorithm here.
+- ![Randomize the list here](src/main/resources/images/randomize.png) Click gere to randomize the data.
+- ![Start sorting here](src/main/resources/images/sort.png) Start the sorting process here.
 - Adjust the speed of the process or the size of the list with the corresponding slider in the program.
 
 ## HELP
