@@ -20,7 +20,7 @@ And all this nicely visualized!
 
 ## Explanation
 - ![Choose the algorithm here](src/main/resources/images/sorter.png) Choose your algorithm here.
-- ![Randomize the list here](src/main/resources/images/randomize.png) Click gere to randomize the data.
+- ![Randomize the list here](src/main/resources/images/randomize.png) Click here to randomize the data.
 - ![Start sorting here](src/main/resources/images/sort.png) Start the sorting process here.
 - Adjust the speed of the process or the size of the list with the corresponding slider in the program.
 
