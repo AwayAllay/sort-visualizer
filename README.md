@@ -1,3 +1,6 @@
+
+[![Latest Version](https://img.shields.io/github/v/release/AwayAllay/sort-visualizer?label=latest)](https://github.com/AwayAllay/sort-visualizer/releases)
+
 # sort-visualizer
 Practical program to watch sorting algorithms sort.
 
